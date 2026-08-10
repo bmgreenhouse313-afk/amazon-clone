@@ -25,62 +25,62 @@
 
   <header class="header">
 
+  <!-- LOGO -->
   <div class="logo">
     <span class="logo-icon">Z</span>
     <span class="logo-text">Zentromax</span>
   </div>
 
+  <!-- SEARCH -->
   <div class="search">
-    ...
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search products..."
+      onkeyup="searchProducts()"
+    >
+
+    <button onclick="searchProducts()">
+      🔍
+    </button>
+
   </div>
 
-  ...
+  <!-- ACCOUNT -->
+  <div
+    class="account"
+    onclick="openLogin()"
+  >
+    <small>Hello, Sign in</small>
+    <strong>Account & Lists</strong>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="orders">
+    <small>Returns</small>
+    <strong>& Orders</strong>
+  </div>
+
+  <!-- WISHLIST -->
+  <div
+    class="wishlist"
+    onclick="openWishlist()"
+  >
+    ❤️ Wishlist
+    <span id="wishlistCount">0</span>
+  </div>
+
+  <!-- CART -->
+  <div
+    class="cart"
+    onclick="openCart()"
+  >
+    🛒 Cart
+    <span id="cartCount">0</span>
+  </div>
+
 </header>
-
-
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-        onkeyup="searchProducts()"
-      >
-
-      <button onclick="searchProducts()">
-        🔍
-      </button>
-
-    </div>
-
-    <div
-      class="account"
-      onclick="openLogin()"
-    >
-      <small>Hello, Sign in</small>
-      <strong>Account & Lists</strong>
-    </div>
-
-    <div class="orders">
-      <small>Returns</small>
-      <strong>& Orders</strong>
-    </div>
-
-    <div
-      class="wishlist"
-      onclick="openWishlist()"
-    >
-      ❤️ Wishlist
-      <span id="wishlistCount">0</span>
-    </div>
-
-    <div
-      class="cart"
-      onclick="openCart()"
-    >
-      🛒 Cart
-      <span id="cartCount">0</span>
-    </div>
-
-  </header>
 
 
   <!-- CATEGORY NAVIGATION -->
