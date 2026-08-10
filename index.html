@@ -4,111 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Zentromax - Online Shopping</title>
+  <title>Zentromax | Online Shopping</title>
 
   <link rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%232563eb'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='60' font-family='Arial' font-weight='bold' fill='white'%3EZ%3C/text%3E%3C/svg%3E">
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-size='62' font-family='Arial' font-weight='bold' fill='white'%3EZ%3C/text%3E%3C/svg%3E">
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header class="header">
 
   <div class="logo" onclick="goHome()">
-    <span class="logo-icon">Z</span>
+    <span class="logo-mark">Z</span>
     <span>Zentromax</span>
   </div>
 
-  <div class="search">
+  <div class="search-box">
     <input
-      type="text"
       id="searchInput"
+      type="search"
       placeholder="Search products..."
-      onkeyup="searchProducts()"
-    >
+      oninput="searchProducts()">
+
     <button onclick="searchProducts()">🔍</button>
   </div>
 
-  <!-- SIGN IN -->
-  <div class="header-button" onclick="openLogin()">
+  <button class="nav-item" onclick="openLogin()">
     <small>Hello, Sign in</small>
     <strong>Account & Lists</strong>
-  </div>
+  </button>
 
-  <!-- ORDERS -->
-  <div class="header-button" onclick="openOrders()">
+  <button class="nav-item" onclick="openOrders()">
     <small>Returns</small>
     <strong>& Orders</strong>
-  </div>
+  </button>
 
-  <!-- WISHLIST -->
-  <div class="header-button wishlist-button" onclick="openWishlist()">
+  <button class="nav-item compact" onclick="openWishlist()">
     ❤️ Wishlist
     <span id="wishlistCount">0</span>
-  </div>
+  </button>
 
-  <!-- CART -->
-  <div class="header-button cart-button" onclick="openCart()">
+  <button class="nav-item compact" onclick="openCart()">
     🛒 Cart
     <span id="cartCount">0</span>
-  </div>
+  </button>
 
 </header>
 
 
-<!-- ================= CATEGORY BAR ================= -->
-
 <nav class="categories">
 
   <button onclick="filterCategory('all')">All</button>
-
-  <button onclick="filterCategory('electronics')">
-    Electronics
-  </button>
-
-  <button onclick="filterCategory('fashion')">
-    Fashion
-  </button>
-
-  <button onclick="filterCategory('home')">
-    Home
-  </button>
-
-  <button onclick="filterCategory('books')">
-    Books
-  </button>
-
-  <button onclick="filterCategory('beauty')">
-    Beauty
-  </button>
+  <button onclick="filterCategory('electronics')">Electronics</button>
+  <button onclick="filterCategory('fashion')">Fashion</button>
+  <button onclick="filterCategory('home')">Home</button>
+  <button onclick="filterCategory('books')">Books</button>
+  <button onclick="filterCategory('beauty')">Beauty</button>
 
 </nav>
 
-
-<!-- ================= HERO ================= -->
 
 <section class="hero">
 
   <div class="hero-content">
 
-    <span class="hero-tag">WELCOME TO ZENTROMAX</span>
+    <span class="eyebrow">WELCOME TO ZENTROMAX</span>
 
     <h1>
-      Discover Your Next<br>
-      Favorite
+      Smart Shopping.<br>
+      Better Living.
     </h1>
 
     <p>
-      Great products. Better shopping.
-      Everything you need in one place.
+      Discover quality products, great prices and
+      a better way to shop online.
     </p>
 
-    <button onclick="scrollToProducts()" class="hero-button">
-      Explore Products →
+    <button class="hero-btn" onclick="scrollToProducts()">
+      Shop Now →
     </button>
 
   </div>
@@ -116,56 +91,39 @@
 </section>
 
 
-<!-- ================= PRODUCTS ================= -->
+<main id="shop">
 
-<main>
-
-  <div class="section-heading">
+  <div class="section-head">
 
     <div>
-      <span class="section-tag">SHOP NOW</span>
-
-      <h2 id="productsTitle">
-        Today's Picks
-      </h2>
+      <span class="eyebrow blue">FEATURED COLLECTION</span>
+      <h2 id="productsTitle">Today's Picks</h2>
     </div>
 
-    <button
-      class="view-all"
-      onclick="filterCategory('all')">
+    <button class="view-btn" onclick="filterCategory('all')">
       View All →
     </button>
 
   </div>
 
-  <section
-    class="products"
-    id="products">
-  </section>
+  <section id="products" class="products"></section>
 
 </main>
 
 
-<!-- ================= CART ================= -->
+<!-- OVERLAY -->
 
-<div
-  class="overlay"
-  id="overlay"
-  onclick="closeAllPanels()">
-</div>
+<div id="overlay" class="overlay" onclick="closeAllPanels()"></div>
 
 
-<aside
-  class="side-panel"
-  id="cartPanel">
+<!-- CART -->
 
-  <div class="panel-header">
+<aside id="cartPanel" class="side-panel">
+
+  <div class="panel-head">
 
     <div>
-      <span class="panel-small">
-        ZENTROMAX
-      </span>
-
+      <span class="panel-label">ZENTROMAX</span>
       <h2>Your Cart</h2>
     </div>
 
@@ -173,29 +131,17 @@
 
   </div>
 
-  <div
-    class="panel-content"
-    id="cartItems">
-  </div>
+  <div id="cartItems" class="panel-body"></div>
 
   <div class="panel-footer">
 
     <div class="total-row">
-
       <span>Total</span>
-
-      <strong>
-        ₹<span id="cartTotal">0</span>
-      </strong>
-
+      <strong>₹<span id="cartTotal">0</span></strong>
     </div>
 
-    <button
-      class="checkout"
-      onclick="checkout()">
-
+    <button class="primary-btn" onclick="checkout()">
       Proceed to Checkout →
-
     </button>
 
   </div>
@@ -203,28 +149,22 @@
 </aside>
 
 
-<!-- ================= LOGIN PANEL ================= -->
+<!-- LOGIN -->
 
-<div
-  class="modal"
-  id="loginModal">
+<div id="loginModal" class="modal">
 
-  <div class="modal-box">
+  <div class="modal-card">
 
-    <button
-      class="modal-close"
-      onclick="closeLogin()">
-      ✕
-    </button>
+    <button class="close-btn" onclick="closeLogin()">✕</button>
 
-    <div class="modal-logo">
-      <span>Z</span>
-    </div>
+    <div class="modal-logo">Z</div>
 
-    <h2>Welcome to Zentromax</h2>
+    <span class="panel-label">ZENTROMAX ACCOUNT</span>
 
-    <p class="modal-subtitle">
-      Sign in to continue shopping
+    <h2>Welcome back</h2>
+
+    <p class="muted">
+      Sign in to continue shopping.
     </p>
 
     <form onsubmit="login(event)">
@@ -232,34 +172,27 @@
       <label>Email or mobile number</label>
 
       <input
-        type="text"
         id="loginEmail"
-        placeholder="Enter email or mobile"
         required
-      >
+        placeholder="Enter email or mobile">
 
       <label>Password</label>
 
       <input
-        type="password"
         id="loginPassword"
-        placeholder="Enter password"
+        type="password"
         required
-      >
+        placeholder="Enter password">
 
-      <button
-        type="submit"
-        class="primary-button">
-
-        Sign in
-
+      <button class="primary-btn" type="submit">
+        Sign In
       </button>
 
     </form>
 
-    <p class="login-note">
+    <p class="bottom-note">
       New to Zentromax?
-      <span>Create an account</span>
+      <b>Create an account</b>
     </p>
 
   </div>
@@ -267,174 +200,93 @@
 </div>
 
 
-<!-- ================= ORDERS PANEL ================= -->
+<!-- ORDERS -->
 
-<div
-  class="modal"
-  id="ordersModal">
+<div id="ordersModal" class="modal">
 
-  <div class="modal-box large-modal">
+  <div class="modal-card wide">
 
-    <button
-      class="modal-close"
-      onclick="closeOrders()">
-      ✕
-    </button>
+    <button class="close-btn" onclick="closeOrders()">✕</button>
 
-    <span class="panel-small">
-      ZENTROMAX
-    </span>
+    <span class="panel-label">ZENTROMAX</span>
 
-    <h2>Your Orders</h2>
+    <h2>Returns & Orders</h2>
 
-    <div id="ordersContent">
-
-      <div class="empty-state">
-
-        <div class="empty-icon">
-          📦
-        </div>
-
-        <h3>No orders yet</h3>
-
-        <p>
-          Your orders will appear here after you
-          purchase a product.
-        </p>
-
-        <button
-          class="primary-button"
-          onclick="closeOrders(); scrollToProducts()">
-
-          Start Shopping
-
-        </button>
-
-      </div>
-
-    </div>
+    <div id="ordersContent"></div>
 
   </div>
 
 </div>
 
 
-<!-- ================= WISHLIST PANEL ================= -->
+<!-- WISHLIST -->
 
-<div
-  class="modal"
-  id="wishlistModal">
+<div id="wishlistModal" class="modal">
 
-  <div class="modal-box large-modal">
+  <div class="modal-card wide">
 
-    <button
-      class="modal-close"
-      onclick="closeWishlist()">
-      ✕
-    </button>
+    <button class="close-btn" onclick="closeWishlist()">✕</button>
 
-    <span class="panel-small">
-      ZENTROMAX
-    </span>
+    <span class="panel-label">ZENTROMAX</span>
 
     <h2>My Wishlist ❤️</h2>
 
-    <div id="wishlistItems">
-
-      <div class="empty-state">
-
-        <div class="empty-icon">
-          ❤️
-        </div>
-
-        <h3>Your wishlist is empty</h3>
-
-        <p>
-          Save products you love and find them here.
-        </p>
-
-      </div>
-
-    </div>
+    <div id="wishlistItems"></div>
 
   </div>
 
 </div>
 
 
-<!-- ================= CHECKOUT MODAL ================= -->
+<!-- PRODUCT DETAILS -->
 
-<div
-  class="modal"
-  id="checkoutModal">
+<div id="productModal" class="modal">
 
-  <div class="modal-box">
+  <div class="modal-card product-modal">
 
-    <button
-      class="modal-close"
-      onclick="closeCheckout()">
-      ✕
-    </button>
+    <button class="close-btn" onclick="closeProductDetails()">✕</button>
 
-    <span class="panel-small">
-      SECURE CHECKOUT
-    </span>
+    <div id="productDetailsContent"></div>
 
-    <h2>Checkout</h2>
+  </div>
+
+</div>
+
+
+<!-- CHECKOUT -->
+
+<div id="checkoutModal" class="modal">
+
+  <div class="modal-card">
+
+    <button class="close-btn" onclick="closeCheckout()">✕</button>
+
+    <span class="panel-label">SECURE CHECKOUT</span>
+
+    <h2>Complete Your Order</h2>
 
     <form onsubmit="placeOrder(event)">
 
       <label>Full Name</label>
-
-      <input
-        type="text"
-        placeholder="Your full name"
-        required
-      >
+      <input required placeholder="Your full name">
 
       <label>Mobile Number</label>
-
-      <input
-        type="tel"
-        placeholder="10 digit mobile number"
-        required
-      >
+      <input required type="tel" placeholder="10 digit mobile number">
 
       <label>Delivery Address</label>
-
-      <textarea
-        placeholder="Enter your complete address"
-        required>
-      </textarea>
+      <textarea required placeholder="Complete delivery address"></textarea>
 
       <label>Payment Method</label>
 
       <select required>
-
-        <option value="">
-          Select payment method
-        </option>
-
-        <option>
-          Cash on Delivery
-        </option>
-
-        <option>
-          UPI
-        </option>
-
-        <option>
-          Card
-        </option>
-
+        <option value="">Choose payment method</option>
+        <option>Cash on Delivery</option>
+        <option>UPI</option>
+        <option>Debit / Credit Card</option>
       </select>
 
-      <button
-        type="submit"
-        class="primary-button">
-
+      <button class="primary-btn" type="submit">
         Place Order
-
       </button>
 
     </form>
@@ -444,30 +296,20 @@
 </div>
 
 
-<!-- ================= FOOTER ================= -->
-
 <footer>
 
-  <div class="footer-logo">
-    Zentromax
-  </div>
+  <div class="footer-brand">Zentromax</div>
 
-  <p>
-    Great products. Better shopping.
-  </p>
+  <p>Great products. Better shopping.</p>
 
   <div class="footer-links">
-
     <span>About</span>
     <span>Contact</span>
     <span>Privacy</span>
     <span>Terms</span>
-
   </div>
 
-  <p class="copyright">
-    © 2026 Zentromax. All rights reserved.
-  </p>
+  <small>© 2026 Zentromax. All rights reserved.</small>
 
 </footer>
 
