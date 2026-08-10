@@ -1,9 +1,12 @@
 /* =====================================================
-   ZENTROMAX - MAIN JAVASCRIPT
+   ZENTROMAX
+   COMPLETE JAVASCRIPT
    ===================================================== */
 
 
-/* ================= PRODUCTS ================= */
+/* =====================================================
+   PRODUCTS
+   ===================================================== */
 
 const products = [
 
@@ -17,8 +20,11 @@ const products = [
     reviews: 128,
     badge: "Best Seller",
     image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Enjoy clear sound, deep bass and comfortable wireless listening with these premium Bluetooth headphones."
   },
+
 
   {
     id: 2,
@@ -30,8 +36,11 @@ const products = [
     reviews: 94,
     badge: "Popular",
     image:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+    description:
+      "A stylish smart watch designed to keep you connected, active and organized throughout the day."
   },
+
 
   {
     id: 3,
@@ -43,8 +52,11 @@ const products = [
     reviews: 76,
     badge: "New",
     image:
-      "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=600&q=80",
+    description:
+      "A comfortable and stylish casual shirt suitable for everyday wear and modern outfits."
   },
+
 
   {
     id: 4,
@@ -56,8 +68,11 @@ const products = [
     reviews: 112,
     badge: "Trending",
     image:
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80",
+    description:
+      "A modern fashion bag with an elegant design, perfect for everyday use and special occasions."
   },
+
 
   {
     id: 5,
@@ -69,8 +84,11 @@ const products = [
     reviews: 63,
     badge: "Deal",
     image:
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Add a modern touch to your home with this elegant and practical table lamp."
   },
+
 
   {
     id: 6,
@@ -82,21 +100,27 @@ const products = [
     reviews: 245,
     badge: "Top Rated",
     image:
-      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",
+    description:
+      "A popular book about money, investing, behavior and building a better relationship with finances."
   },
+
 
   {
     id: 7,
     name: "Skincare Beauty Set",
     category: "beauty",
     price: 999,
-    oldPrice: 1499,
+    oldPrice: 1399,
     rating: 4.5,
     reviews: 87,
-    badge: "Popular",
+    badge: "Beauty Pick",
     image:
-      "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=600&q=80",
+    description:
+      "A carefully selected skincare beauty set for a simple and refreshing daily routine."
   },
+
 
   {
     id: 8,
@@ -105,104 +129,114 @@ const products = [
     price: 1199,
     oldPrice: 1599,
     rating: 4.4,
-    reviews: 91,
-    badge: "Best Seller",
+    reviews: 103,
+    badge: "Hot Deal",
     image:
-      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80"
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Take your music anywhere with this compact portable Bluetooth speaker with powerful sound."
   }
 
 ];
 
 
-/* ================= CART ================= */
+/* =====================================================
+   STATE
+   ===================================================== */
 
 let cart = [];
-
-
-/* ================= WISHLIST ================= */
 
 let wishlist = [];
 
 
-/* ================= DISPLAY PRODUCTS ================= */
+/* =====================================================
+   DISPLAY PRODUCTS
+   ===================================================== */
 
 function displayProducts(list = products) {
 
-  const container = document.getElementById("products");
+  const container =
+    document.getElementById("products");
+
 
   if (!container) return;
 
+
   container.innerHTML = "";
+
 
   if (list.length === 0) {
 
     container.innerHTML = `
-      <div style="
-        grid-column:1/-1;
-        text-align:center;
-        padding:60px 20px;
-        background:white;
-        border-radius:16px;
-      ">
-        <h2>No products found</h2>
-        <p style="color:#64748b;margin-top:10px;">
-          Try searching for something else.
+
+      <div class="empty-cart">
+
+        <div class="empty-cart-icon">
+          🔎
+        </div>
+
+        <h3>
+          No products found
+        </h3>
+
+        <p>
+          Try another search.
         </p>
+
       </div>
+
     `;
 
     return;
+
   }
 
 
   list.forEach(product => {
 
-    const isWishlisted =
-      wishlist.includes(product.id);
-
-
     const card =
-      document.createElement("div");
+      document.createElement("article");
+
 
     card.className = "product";
 
 
+    const isWishlisted =
+      wishlist.includes(product.id);
+
+
     card.innerHTML = `
 
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:8px;
-      ">
-
-        <span style="
-          background:#eff6ff;
-          color:#2563eb;
-          padding:5px 9px;
-          border-radius:20px;
-          font-size:11px;
-          font-weight:700;
-        ">
-          ${product.badge}
-        </span>
-
-        <button
-          class="wishlist-button"
-          onclick="toggleWishlist(${product.id})"
-          title="Wishlist"
-        >
-          ${isWishlisted ? "❤️" : "♡"}
-        </button>
-
-      </div>
+      <span class="product-badge">
+        ${product.badge}
+      </span>
 
 
-      <img
-        src="${product.image}"
-        alt="${product.name}"
+      <button
+        class="product-wishlist ${
+          isWishlisted ? "active" : ""
+        }"
+        onclick="
+          event.stopPropagation();
+          toggleWishlist(${product.id});
+        "
+      >
+        ${isWishlisted ? "♥" : "♡"}
+      </button>
+
+
+      <div
+        class="product-image-box"
         onclick="openProductDetails(${product.id})"
       >
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+          loading="lazy"
+        >
+
+      </div>
 
 
       <h3
@@ -213,45 +247,49 @@ function displayProducts(list = products) {
 
 
       <div class="rating">
+
         ⭐ ${product.rating}
-        <span style="
-          color:#94a3b8;
-          font-size:12px;
-        ">
+
+        <span>
           (${product.reviews})
         </span>
+
       </div>
 
 
       <div class="price">
+
         ₹${product.price.toLocaleString("en-IN")}
 
-        <span style="
-          font-size:13px;
-          color:#94a3b8;
-          text-decoration:line-through;
-          font-weight:400;
-          margin-left:5px;
-        ">
+        <span class="old-price">
           ₹${product.oldPrice.toLocaleString("en-IN")}
         </span>
+
       </div>
 
 
-      <div class="product-buttons">
+      <div class="product-bottom">
 
         <button
           class="add-cart"
-          onclick="addToCart(${product.id})"
+          onclick="
+            event.stopPropagation();
+            addToCart(${product.id});
+          "
         >
           🛒 Add to Cart
         </button>
 
+
         <button
-          class="wishlist-button"
-          onclick="toggleWishlist(${product.id})"
+          class="view-product"
+          onclick="
+            event.stopPropagation();
+            openProductDetails(${product.id});
+          "
+          title="View Product"
         >
-          ${isWishlisted ? "❤️" : "♡"}
+          👁
         </button>
 
       </div>
@@ -266,18 +304,25 @@ function displayProducts(list = products) {
 }
 
 
-/* ================= ADD TO CART ================= */
+/* =====================================================
+   CART
+   ===================================================== */
 
 function addToCart(id) {
 
   const product =
-    products.find(p => p.id === id);
+    products.find(
+      product => product.id === id
+    );
+
 
   if (!product) return;
 
 
   const existing =
-    cart.find(item => item.id === id);
+    cart.find(
+      item => item.id === id
+    );
 
 
   if (existing) {
@@ -287,8 +332,11 @@ function addToCart(id) {
   } else {
 
     cart.push({
+
       ...product,
+
       quantity: 1
+
     });
 
   }
@@ -297,12 +345,14 @@ function addToCart(id) {
   updateCart();
 
 
-  alert(`${product.name} added to your cart!`);
+  /* Small feedback */
+
+  showToast(
+    `${product.name} added to cart`
+  );
 
 }
 
-
-/* ================= UPDATE CART ================= */
 
 function updateCart() {
 
@@ -317,45 +367,37 @@ function updateCart() {
   const countElement =
     document.getElementById("cartCount");
 
+
   if (countElement) {
-    countElement.textContent = count;
+
+    countElement.textContent =
+      count;
+
   }
 
 
   const container =
     document.getElementById("cartItems");
 
+
   if (!container) return;
-
-
-  container.innerHTML = "";
-
-
-  let total = 0;
 
 
   if (cart.length === 0) {
 
     container.innerHTML = `
 
-      <div style="
-        text-align:center;
-        padding:60px 15px;
-        color:#64748b;
-      ">
+      <div class="empty-cart">
 
-        <div style="font-size:50px;">
+        <div class="empty-cart-icon">
           🛒
         </div>
 
-        <h3 style="
-          color:#0f172a;
-          margin-top:15px;
-        ">
+        <h3>
           Your cart is empty
         </h3>
 
-        <p style="margin-top:8px;">
+        <p>
           Add some products to get started.
         </p>
 
@@ -363,19 +405,24 @@ function updateCart() {
 
     `;
 
+    updateCartTotal();
+
+    return;
+
   }
+
+
+  container.innerHTML = "";
 
 
   cart.forEach(item => {
 
-    total +=
-      item.price * item.quantity;
-
-
     const div =
       document.createElement("div");
 
-    div.className = "cart-item";
+
+    div.className =
+      "cart-item";
 
 
     div.innerHTML = `
@@ -385,39 +432,42 @@ function updateCart() {
         alt="${item.name}"
       >
 
-      <div style="flex:1">
 
-        <strong>
+      <div class="cart-item-content">
+
+        <div class="cart-item-name">
           ${item.name}
-        </strong>
+        </div>
 
-        <p>
+
+        <div class="cart-item-price">
           ₹${item.price.toLocaleString("en-IN")}
-        </p>
-
-        <p>
-          Quantity:
-          <strong>
-            ${item.quantity}
-          </strong>
-        </p>
+        </div>
 
 
-        <div>
+        <div class="quantity-controls">
 
           <button
-            onclick="decrease(${item.id})"
+            onclick="decreaseQuantity(${item.id})"
           >
             −
           </button>
 
+
+          <strong>
+            ${item.quantity}
+          </strong>
+
+
           <button
-            onclick="increase(${item.id})"
+            onclick="increaseQuantity(${item.id})"
           >
             +
           </button>
 
+
           <button
+            class="remove-button"
             onclick="removeFromCart(${item.id})"
           >
             Remove
@@ -435,6 +485,23 @@ function updateCart() {
   });
 
 
+  updateCartTotal();
+
+}
+
+
+function updateCartTotal() {
+
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum +
+        item.price *
+        item.quantity,
+      0
+    );
+
+
   const totalElement =
     document.getElementById("cartTotal");
 
@@ -449,12 +516,12 @@ function updateCart() {
 }
 
 
-/* ================= INCREASE ================= */
-
-function increase(id) {
+function increaseQuantity(id) {
 
   const item =
-    cart.find(item => item.id === id);
+    cart.find(
+      item => item.id === id
+    );
 
 
   if (item) {
@@ -469,12 +536,12 @@ function increase(id) {
 }
 
 
-/* ================= DECREASE ================= */
-
-function decrease(id) {
+function decreaseQuantity(id) {
 
   const item =
-    cart.find(item => item.id === id);
+    cart.find(
+      item => item.id === id
+    );
 
 
   if (!item) return;
@@ -498,8 +565,6 @@ function decrease(id) {
 }
 
 
-/* ================= REMOVE ================= */
-
 function removeFromCart(id) {
 
   cart =
@@ -513,119 +578,56 @@ function removeFromCart(id) {
 }
 
 
-/* ================= SEARCH ================= */
-
-function searchProducts() {
-
-  const input =
-    document.getElementById("searchInput");
-
-
-  if (!input) return;
-
-
-  const query =
-    input.value
-      .trim()
-      .toLowerCase();
-
-
-  if (query === "") {
-
-    displayProducts(products);
-
-    return;
-
-  }
-
-
-  const results =
-    products.filter(product =>
-      product.name
-        .toLowerCase()
-        .includes(query)
-    );
-
-
-  displayProducts(results);
-
-}
-
-
-/* ================= CATEGORY ================= */
-
-function filterCategory(category) {
-
-  if (category === "all") {
-
-    displayProducts(products);
-
-  } else {
-
-    const filtered =
-      products.filter(
-        product =>
-          product.category === category
-      );
-
-    displayProducts(filtered);
-
-  }
-
-
-  scrollToProducts();
-
-}
-
-
-/* ================= OPEN CART ================= */
+/* =====================================================
+   OPEN / CLOSE CART
+   ===================================================== */
 
 function openCart() {
 
-  const panel =
+  const cartPanel =
+    document.getElementById("cartPanel");
+
+  const wishlistPanel =
+    document.getElementById("wishlistPanel");
+
+  const overlay =
+    document.getElementById("overlay");
+
+
+  wishlistPanel.classList.remove("open");
+
+  cartPanel.classList.add("open");
+
+  overlay.classList.add("show");
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+function closeCart() {
+
+  const cartPanel =
     document.getElementById("cartPanel");
 
   const overlay =
     document.getElementById("overlay");
 
 
-  if (panel) {
+  cartPanel.classList.remove("open");
 
-    panel.classList.add("open");
+  overlay.classList.remove("show");
 
-  }
-
-
-  if (overlay) {
-
-    overlay.classList.add("show");
-
-  }
+  document.body.style.overflow =
+    "";
 
 }
 
 
-/* ================= CLOSE CART ================= */
-
-function closeCart() {
-
-  const panel =
-    document.getElementById("cartPanel");
-
-
-  if (panel) {
-
-    panel.classList.remove("open");
-
-  }
-
-
-  closeOverlay();
-
-}
-
-
-/* ================= WISHLIST ================= */
+/* =====================================================
+   WISHLIST
+   ===================================================== */
 
 function toggleWishlist(id) {
 
@@ -636,7 +638,31 @@ function toggleWishlist(id) {
         item => item !== id
       );
 
+    showToast(
+      "Removed from wishlist"
+    );
+
   } else {
+
+    wishlist.push(id);
+
+    showToast(
+      "Added to wishlist ❤️"
+    );
+
+  }
+
+
+  updateWishlist();
+
+  displayProducts();
+
+}
+
+
+function addToWishlist(id) {
+
+  if (!wishlist.includes(id)) {
 
     wishlist.push(id);
 
@@ -645,47 +671,14 @@ function toggleWishlist(id) {
 
   updateWishlist();
 
-  displayProducts(
-    getCurrentlyDisplayedProducts()
+  displayProducts();
+
+  showToast(
+    "Added to wishlist ❤️"
   );
 
 }
 
-
-/* ================= GET DISPLAYED PRODUCTS ================= */
-
-function getCurrentlyDisplayedProducts() {
-
-  const input =
-    document.getElementById("searchInput");
-
-
-  if (
-    !input ||
-    input.value.trim() === ""
-  ) {
-
-    return products;
-
-  }
-
-
-  const query =
-    input.value
-      .trim()
-      .toLowerCase();
-
-
-  return products.filter(product =>
-    product.name
-      .toLowerCase()
-      .includes(query)
-  );
-
-}
-
-
-/* ================= UPDATE WISHLIST ================= */
 
 function updateWishlist() {
 
@@ -712,31 +705,21 @@ function updateWishlist() {
   if (!container) return;
 
 
-  container.innerHTML = "";
-
-
   if (wishlist.length === 0) {
 
     container.innerHTML = `
 
-      <div style="
-        text-align:center;
-        padding:60px 15px;
-        color:#64748b;
-      ">
+      <div class="empty-cart">
 
-        <div style="font-size:50px;">
-          ♡
+        <div class="empty-cart-icon">
+          ❤️
         </div>
 
-        <h3 style="
-          color:#0f172a;
-          margin-top:15px;
-        ">
+        <h3>
           Your wishlist is empty
         </h3>
 
-        <p style="margin-top:8px;">
+        <p>
           Save products you love here.
         </p>
 
@@ -749,55 +732,53 @@ function updateWishlist() {
   }
 
 
+  container.innerHTML = "";
+
+
   wishlist.forEach(id => {
 
     const product =
       products.find(
-        p => p.id === id
+        item => item.id === id
       );
 
 
     if (!product) return;
 
 
-    const item =
+    const div =
       document.createElement("div");
 
 
-    item.className =
+    div.className =
       "wishlist-item";
 
 
-    item.innerHTML = `
+    div.innerHTML = `
 
       <img
         src="${product.image}"
         alt="${product.name}"
       >
 
-      <div style="flex:1">
+
+      <div class="wishlist-item-info">
+
+        <h4>
+          ${product.name}
+        </h4>
+
 
         <strong>
-          ${product.name}
+          ₹${product.price.toLocaleString("en-IN")}
         </strong>
 
-        <div style="
-          font-weight:800;
-          margin-top:5px;
-        ">
-          ₹${product.price.toLocaleString("en-IN")}
-        </div>
 
         <button
+          class="add-cart"
           onclick="addToCart(${product.id})"
         >
-          🛒 Add to Cart
-        </button>
-
-        <button
-          onclick="toggleWishlist(${product.id})"
-        >
-          Remove
+          Add to Cart
         </button>
 
       </div>
@@ -805,72 +786,82 @@ function updateWishlist() {
     `;
 
 
-    container.appendChild(item);
+    container.appendChild(div);
 
   });
 
 }
 
 
-/* ================= OPEN WISHLIST ================= */
-
 function openWishlist() {
 
-  const panel =
+  const wishlistPanel =
     document.getElementById(
       "wishlistPanel"
     );
 
+  const cartPanel =
+    document.getElementById(
+      "cartPanel"
+    );
 
   const overlay =
     document.getElementById("overlay");
 
 
-  if (panel) {
+  cartPanel.classList.remove("open");
 
-    panel.classList.add("open");
+  wishlistPanel.classList.add("open");
 
-  }
+  overlay.classList.add("show");
 
-
-  if (overlay) {
-
-    overlay.classList.add("show");
-
-  }
+  document.body.style.overflow =
+    "hidden";
 
 }
 
 
-/* ================= CLOSE WISHLIST ================= */
-
 function closeWishlist() {
 
-  const panel =
+  const wishlistPanel =
     document.getElementById(
       "wishlistPanel"
     );
 
-
-  if (panel) {
-
-    panel.classList.remove("open");
-
-  }
+  const overlay =
+    document.getElementById("overlay");
 
 
-  closeOverlay();
+  wishlistPanel.classList.remove(
+    "open"
+  );
+
+  overlay.classList.remove("show");
+
+  document.body.style.overflow =
+    "";
 
 }
 
 
-/* ================= PRODUCT DETAILS ================= */
+function closeAllPanels() {
+
+  closeCart();
+
+  closeWishlist();
+
+}
+
+
+/* =====================================================
+   PRODUCT DETAILS
+   ===================================================== */
 
 function openProductDetails(id) {
 
   const product =
     products.find(
-      p => p.id === id
+      item => item.id === id
     );
 
 
@@ -889,14 +880,16 @@ function openProductDetails(id) {
     );
 
 
-  if (!modal || !details) return;
+  const isWishlisted =
+    wishlist.includes(product.id);
 
 
   details.innerHTML = `
 
     <div class="product-detail">
 
-      <div>
+
+      <div class="detail-image-box">
 
         <img
           src="${product.image}"
@@ -908,73 +901,97 @@ function openProductDetails(id) {
 
       <div>
 
-        <span style="
-          display:inline-block;
-          background:#eff6ff;
-          color:#2563eb;
-          padding:6px 12px;
-          border-radius:20px;
-          font-size:12px;
-          font-weight:700;
-        ">
-          ${product.badge}
+
+        <span class="detail-category">
+
+          ${product.category}
+
         </span>
 
 
-        <h2 style="margin-top:15px;">
+        <h2>
           ${product.name}
         </h2>
 
 
-        <div class="rating">
+        <div class="detail-rating">
+
           ⭐ ${product.rating}
-          (${product.reviews} reviews)
+
+          <span style="color:#94a3b8;">
+            (${product.reviews} reviews)
+          </span>
+
         </div>
 
 
         <div class="detail-price">
+
           ₹${product.price.toLocaleString("en-IN")}
+
+          <span class="old-price">
+            ₹${product.oldPrice.toLocaleString("en-IN")}
+          </span>
+
         </div>
 
 
-        <p class="detail-description">
-          Premium quality product available
-          at Zentromax. Enjoy reliable quality,
-          great value and a smooth shopping
-          experience.
-        </p>
-
-
-        <div style="
-          margin-bottom:20px;
-          color:#16a34a;
-          font-weight:700;
-        ">
+        <div class="detail-stock">
           ✓ In Stock
         </div>
 
 
-        <button
-          class="detail-add-cart"
-          onclick="addToCart(${product.id}); closeProductDetails();"
-        >
-          🛒 Add to Cart
-        </button>
+        <p class="detail-description">
+          ${product.description}
+        </p>
 
-        <button
-          class="wishlist-button"
-          style="
-            margin-left:8px;
-            vertical-align:middle;
-          "
-          onclick="toggleWishlist(${product.id})"
-        >
-          ${
-            wishlist.includes(product.id)
-              ? "❤️"
-              : "♡"
-          }
-        </button>
+
+        <div class="detail-actions">
+
+          <button
+            class="detail-cart"
+            onclick="
+              addToCart(${product.id});
+              closeProductDetails();
+            "
+          >
+            🛒 Add to Cart
+          </button>
+
+
+          <button
+            class="detail-wishlist"
+            onclick="
+              toggleWishlist(${product.id});
+              updateProductModal(${product.id});
+            "
+          >
+            ${isWishlisted ? "♥" : "♡"}
+          </button>
+
+        </div>
+
+
+        <div style="
+          margin-top:25px;
+          padding-top:20px;
+          border-top:1px solid #e2e8f0;
+          color:#64748b;
+          line-height:2;
+        ">
+
+          🚚 Fast Delivery
+
+          <br>
+
+          🔒 Secure Shopping
+
+          <br>
+
+          ↩️ Easy Returns
+
+        </div>
+
 
       </div>
 
@@ -985,10 +1002,28 @@ function openProductDetails(id) {
 
   modal.classList.add("show");
 
+  document.body.style.overflow =
+    "hidden";
+
 }
 
 
-/* ================= CLOSE PRODUCT ================= */
+function updateProductModal(id) {
+
+  const product =
+    products.find(
+      item => item.id === id
+    );
+
+
+  if (product) {
+
+    openProductDetails(id);
+
+  }
+
+}
+
 
 function closeProductDetails() {
 
@@ -998,107 +1033,174 @@ function closeProductDetails() {
     );
 
 
-  if (modal) {
+  modal.classList.remove("show");
 
-    modal.classList.remove("show");
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+function searchProducts() {
+
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+
+  const query =
+    input.value
+      .trim()
+      .toLowerCase();
+
+
+  const results =
+    products.filter(product =>
+      product.name
+        .toLowerCase()
+        .includes(query)
+      ||
+      product.category
+        .toLowerCase()
+        .includes(query)
+    );
+
+
+  displayProducts(results);
+
+
+  const title =
+    document.getElementById(
+      "productsTitle"
+    );
+
+
+  if (query) {
+
+    title.textContent =
+      `Search results for "${query}"`;
+
+  } else {
+
+    title.textContent =
+      "Today's Picks";
 
   }
 
 }
 
 
-/* ================= LOGIN ================= */
+/* =====================================================
+   CATEGORY
+   ===================================================== */
 
-function openLogin() {
+function filterCategory(category) {
 
-  const modal =
+  if (category === "all") {
+
+    displayProducts(products);
+
     document.getElementById(
-      "loginModal"
-    );
-
-
-  if (modal) {
-
-    modal.classList.add("show");
-
-  }
-
-}
-
-
-function closeLogin() {
-
-  const modal =
-    document.getElementById(
-      "loginModal"
-    );
-
-
-  if (modal) {
-
-    modal.classList.remove("show");
-
-  }
-
-}
-
-
-/* ================= LOGIN USER ================= */
-
-function loginUser() {
-
-  const email =
-    document.getElementById(
-      "loginEmail"
-    ).value.trim();
-
-
-  const password =
-    document.getElementById(
-      "loginPassword"
-    ).value.trim();
-
-
-  if (!email || !password) {
-
-    alert(
-      "Please enter your email and password."
-    );
+      "productsTitle"
+    ).textContent =
+      "Today's Picks";
 
     return;
 
   }
 
 
-  alert(
-    `Welcome to Zentromax!`
-  );
+  const filtered =
+    products.filter(
+      product =>
+        product.category === category
+    );
 
 
-  closeLogin();
-
-}
+  displayProducts(filtered);
 
 
-/* ================= REGISTER ================= */
-
-function registerUser() {
-
-  alert(
-    "Registration system will be connected to a database in the next step."
-  );
+  document.getElementById(
+    "productsTitle"
+  ).textContent =
+    category.charAt(0).toUpperCase() +
+    category.slice(1);
 
 }
 
 
-/* ================= CHECKOUT ================= */
+/* =====================================================
+   SCROLL
+   ===================================================== */
+
+function scrollToProducts() {
+
+  const section =
+    document.getElementById(
+      "products"
+    );
+
+
+  section.scrollIntoView({
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =====================================================
+   HOME
+   ===================================================== */
+
+function goHome() {
+
+  window.scrollTo({
+
+    top: 0,
+
+    behavior: "smooth"
+
+  });
+
+
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+
+  if (input) {
+
+    input.value = "";
+
+  }
+
+
+  displayProducts(products);
+
+  document.getElementById(
+    "productsTitle"
+  ).textContent =
+    "Today's Picks";
+
+}
+
+
+/* =====================================================
+   CHECKOUT
+   ===================================================== */
 
 function checkout() {
 
   if (cart.length === 0) {
 
     alert(
-      "Your cart is empty!"
+      "Your cart is empty. Please add a product first."
     );
 
     return;
@@ -1106,71 +1208,153 @@ function checkout() {
   }
 
 
+  const total =
+    cart.reduce(
+      (sum, item) =>
+        sum +
+        item.price *
+        item.quantity,
+      0
+    );
+
+
   alert(
-    "Checkout page will be connected in the next step."
+    `Checkout\n\nOrder Total: ₹${total.toLocaleString("en-IN")}\n\nCheckout system will be connected in the next step.`
   );
 
 }
 
 
-/* ================= SCROLL ================= */
+/* =====================================================
+   TOAST
+   ===================================================== */
 
-function scrollToProducts() {
+function showToast(message) {
 
-  const section =
-    document.getElementById(
-      "productsTitle"
+  const oldToast =
+    document.querySelector(
+      ".zentromax-toast"
     );
 
 
-  if (section) {
+  if (oldToast) {
 
-    section.scrollIntoView({
-      behavior: "smooth"
-    });
+    oldToast.remove();
 
   }
 
+
+  const toast =
+    document.createElement("div");
+
+
+  toast.className =
+    "zentromax-toast";
+
+
+  toast.textContent =
+    message;
+
+
+  toast.style.position =
+    "fixed";
+
+  toast.style.bottom =
+    "25px";
+
+  toast.style.left =
+    "50%";
+
+  toast.style.transform =
+    "translateX(-50%)";
+
+  toast.style.background =
+    "#0f172a";
+
+  toast.style.color =
+    "white";
+
+  toast.style.padding =
+    "13px 22px";
+
+  toast.style.borderRadius =
+    "10px";
+
+  toast.style.fontWeight =
+    "700";
+
+  toast.style.zIndex =
+    "10000";
+
+  toast.style.boxShadow =
+    "0 10px 30px rgba(0,0,0,.2)";
+
+
+  document.body.appendChild(
+    toast
+  );
+
+
+  setTimeout(() => {
+
+    toast.remove();
+
+  }, 2000);
+
 }
 
 
-/* ================= OVERLAY ================= */
+/* =====================================================
+   MODAL CLICK / ESC
+   ===================================================== */
 
-function closeOverlay() {
+document.addEventListener(
+  "click",
+  function(event) {
 
-  const overlay =
-    document.getElementById("overlay");
+    const modal =
+      document.getElementById(
+        "productModal"
+      );
 
 
-  if (overlay) {
+    if (
+      event.target === modal
+    ) {
 
-    overlay.classList.remove("show");
+      closeProductDetails();
+
+    }
 
   }
-
-}
-
-
-/* ================= CLOSE EVERYTHING ================= */
-
-function closeAllPanels() {
-
-  closeCart();
-
-  closeWishlist();
-
-  closeProductDetails();
-
-  closeLogin();
-
-}
+);
 
 
-/* ================= INITIAL LOAD ================= */
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeProductDetails();
+
+      closeAllPanels();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   INITIAL LOAD
+   ===================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
-  function () {
+  function() {
 
     displayProducts();
 
