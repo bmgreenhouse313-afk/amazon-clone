@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Zentromax Admin Panel</title>
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-logo">Z</div>
+      <span>Zentromax</span>
+    </div>
+
+    <nav>
+
+      <button class="active" onclick="showSection('dashboard')">
+        📊 Dashboard
+      </button>
+
+      <button onclick="showSection('products')">
+        📦 Products
+      </button>
+
+      <button onclick="showSection('orders')">
+        🛒 Orders
+      </button>
+
+      <button onclick="showSection('customers')">
+        👥 Customers
+      </button>
+
+      <button onclick="showSection('settings')">
+        ⚙️ Settings
+      </button>
+
+    </nav>
+
+    <button class="logout" onclick="logout()">
+      🚪 Logout
+    </button>
+
+  </aside>
+
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Zentromax Store Management</p>
+      </div>
+
+      <div class="admin-user">
+        👤 Admin
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="section active-section">
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <span>📦</span>
+          <h3 id="totalProducts">0</h3>
+          <p>Total Products</p>
+        </div>
+
+        <div class="stat-card">
+          <span>🛒</span>
+          <h3 id="totalOrders">0</h3>
+          <p>Total Orders</p>
+        </div>
+
+        <div class="stat-card">
+          <span>👥</span>
+          <h3 id="totalCustomers">0</h3>
+          <p>Customers</p>
+        </div>
+
+        <div class="stat-card">
+          <span>💰</span>
+          <h3 id="totalSales">₹0</h3>
+          <p>Total Sales</p>
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <div class="panel-title">
+
+          <div>
+            <h2>Recent Orders</h2>
+            <p>Latest Zentromax orders</p>
+          </div>
+
+          <button onclick="showSection('orders')">
+            View All
+          </button>
+
+        </div>
+
+        <div id="recentOrders"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section id="products" class="section">
+
+      <div class="section-actions">
+
+        <div>
+          <h2>Products</h2>
+          <p>Manage your store products</p>
+        </div>
+
+        <button class="primary" onclick="openProductForm()">
+          + Add Product
+        </button>
+
+      </div>
+
+
+      <div class="panel">
+
+        <div class="search-admin">
+
+          <input
+            id="productSearch"
+            placeholder="Search products..."
+            oninput="renderProducts()">
+
+        </div>
+
+        <div id="productTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ORDERS -->
+
+    <section id="orders" class="section">
+
+      <div class="section-actions">
+
+        <div>
+          <h2>Orders</h2>
+          <p>Manage customer orders</p>
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <div id="ordersTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CUSTOMERS -->
+
+    <section id="customers" class="section">
+
+      <div class="section-actions">
+
+        <div>
+          <h2>Customers</h2>
+          <p>Customer information</p>
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="customer-card">
+          <div class="avatar">A</div>
+
+          <div>
+            <strong>Demo Customer</strong>
+            <p>customer@example.com</p>
+          </div>
+
+          <span class="status">
+            Active
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SETTINGS -->
+
+    <section id="settings" class="section">
+
+      <div class="section-actions">
+
+        <div>
+          <h2>Store Settings</h2>
+          <p>Customize your Zentromax store</p>
+        </div>
+
+      </div>
+
+
+      <div class="panel settings-panel">
+
+        <label>Store Name</label>
+
+        <input
+          id="storeName"
+          value="Zentromax">
+
+        <label>Logo Letter</label>
+
+        <input
+          id="logoLetter"
+          maxlength="1"
+          value="Z">
+
+        <label>Store Description</label>
+
+        <textarea id="storeDescription">Smart Shopping. Better Living.</textarea>
+
+        <button class="primary" onclick="saveSettings()">
+          Save Settings
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- PRODUCT FORM -->
+
+  <div id="productModal" class="modal">
+
+    <div class="modal-card">
+
+      <button
+        class="close"
+        onclick="closeProductForm()">
+        ✕
+      </button>
+
+      <h2 id="formTitle">
+        Add Product
+      </h2>
+
+      <form onsubmit="saveProduct(event)">
+
+        <input
+          type="hidden"
+          id="editProductId">
+
+        <label>Product Name</label>
+
+        <input
+          id="productName"
+          required
+          placeholder="Product name">
+
+
+        <label>Category</label>
+
+        <select id="productCategory" required>
+
+          <option value="electronics">
+            Electronics
+          </option>
+
+          <option value="fashion">
+            Fashion
+          </option>
+
+          <option value="home">
+            Home
+          </option>
+
+          <option value="books">
+            Books
+          </option>
+
+          <option value="beauty">
+            Beauty
+          </option>
+
+        </select>
+
+
+        <label>Price ₹</label>
+
+        <input
+          id="productPrice"
+          type="number"
+          min="1"
+          required
+          placeholder="1499">
+
+
+        <label>Rating</label>
+
+        <input
+          id="productRating"
+          type="number"
+          min="1"
+          max="5"
+          step="0.1"
+          value="4.5">
+
+
+        <label>Product Image URL</label>
+
+        <input
+          id="productImage"
+          required
+          placeholder="https://...">
+
+
+        <button
+          class="primary full"
+          type="submit">
+
+          Save Product
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="admin.js"></script>
+
+</body>
+</html>
