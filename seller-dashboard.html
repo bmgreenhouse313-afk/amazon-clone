@@ -11,6 +11,8 @@
 
 <body>
 
+  <!-- SIDEBAR -->
+
   <aside class="seller-sidebar">
 
     <div class="seller-brand">
@@ -59,11 +61,16 @@
   </aside>
 
 
+  <!-- MAIN -->
+
   <main class="seller-main">
+
+    <!-- TOP BAR -->
 
     <header class="seller-topbar">
 
       <div>
+
         <h1 id="sellerPageTitle">
           Dashboard
         </h1>
@@ -71,6 +78,7 @@
         <p>
           Manage your Zentromax store
         </p>
+
       </div>
 
       <div class="seller-account">
@@ -80,6 +88,7 @@
         </div>
 
         <div>
+
           <strong id="sellerName">
             Seller
           </strong>
@@ -87,6 +96,7 @@
           <small>
             Seller Account
           </small>
+
         </div>
 
       </div>
@@ -94,7 +104,9 @@
     </header>
 
 
-    <!-- DASHBOARD -->
+    <!-- =========================
+         DASHBOARD
+    ========================== -->
 
     <section
       id="sellerDashboard"
@@ -104,7 +116,9 @@
 
         <div>
 
-          <span>Welcome back 👋</span>
+          <span>
+            Welcome back 👋
+          </span>
 
           <h2 id="welcomeSeller">
             Welcome, Seller
@@ -126,6 +140,8 @@
       </div>
 
 
+      <!-- STATS -->
+
       <div class="seller-stats">
 
         <div class="seller-stat">
@@ -135,6 +151,7 @@
           </div>
 
           <div>
+
             <h3 id="sellerProductCount">
               0
             </h3>
@@ -142,6 +159,7 @@
             <p>
               My Products
             </p>
+
           </div>
 
         </div>
@@ -154,6 +172,7 @@
           </div>
 
           <div>
+
             <h3 id="sellerOrderCount">
               0
             </h3>
@@ -161,6 +180,7 @@
             <p>
               My Orders
             </p>
+
           </div>
 
         </div>
@@ -173,6 +193,7 @@
           </div>
 
           <div>
+
             <h3 id="sellerSales">
               ₹0
             </h3>
@@ -180,6 +201,7 @@
             <p>
               Total Sales
             </p>
+
           </div>
 
         </div>
@@ -187,18 +209,22 @@
       </div>
 
 
+      <!-- RECENT PRODUCTS -->
+
       <div class="seller-panel">
 
         <div class="panel-heading">
 
           <div>
+
             <h2>
               My Products
             </h2>
 
             <p>
-              Products added by your account
+              Products added by your seller account
             </p>
+
           </div>
 
           <button
@@ -217,7 +243,9 @@
     </section>
 
 
-    <!-- MY PRODUCTS -->
+    <!-- =========================
+         MY PRODUCTS
+    ========================== -->
 
     <section
       id="sellerProducts"
@@ -267,7 +295,9 @@
     </section>
 
 
-    <!-- MY ORDERS -->
+    <!-- =========================
+         ORDERS
+    ========================== -->
 
     <section
       id="sellerOrders"
@@ -299,7 +329,9 @@
     </section>
 
 
-    <!-- PROFILE -->
+    <!-- =========================
+         PROFILE
+    ========================== -->
 
     <section
       id="sellerProfile"
@@ -351,7 +383,9 @@
   </main>
 
 
-  <!-- ADD / EDIT PRODUCT MODAL -->
+  <!-- =========================
+       ADD / EDIT PRODUCT MODAL
+  ========================== -->
 
   <div
     id="sellerProductModal"
@@ -367,6 +401,7 @@
 
       </button>
 
+
       <h2 id="sellerFormTitle">
         Add Product
       </h2>
@@ -380,10 +415,8 @@
         id="sellerProductForm"
         onsubmit="saveSellerProduct(event)">
 
-        <input
-          type="hidden"
-          id="sellerEditProductId">
 
+        <!-- PRODUCT NAME -->
 
         <label>
           Product Name
@@ -392,9 +425,11 @@
         <input
           type="text"
           id="sellerProductName"
-          placeholder="Example: Wireless Headphones"
+          placeholder="Example: Wireless Bluetooth Headphones"
           required>
 
+
+        <!-- CATEGORY -->
 
         <label>
           Category
@@ -403,6 +438,10 @@
         <select
           id="sellerProductCategory"
           required>
+
+          <option value="">
+            Select Category
+          </option>
 
           <option value="electronics">
             Electronics
@@ -427,6 +466,8 @@
         </select>
 
 
+        <!-- PRICE -->
+
         <label>
           Price ₹
         </label>
@@ -439,6 +480,8 @@
           required>
 
 
+        <!-- RATING -->
+
         <label>
           Rating
         </label>
@@ -449,8 +492,11 @@
           min="1"
           max="5"
           step="0.1"
-          value="4.5">
+          value="4.5"
+          required>
 
+
+        <!-- IMAGE -->
 
         <label>
           Product Image URL
@@ -462,6 +508,21 @@
           placeholder="https://example.com/image.jpg"
           required>
 
+
+        <!-- DESCRIPTION -->
+
+        <label>
+          Product Description
+        </label>
+
+        <textarea
+          id="sellerProductDescription"
+          placeholder="Write a detailed description about your product..."
+          rows="6"
+          required></textarea>
+
+
+        <!-- SAVE -->
 
         <button
           type="submit"
@@ -477,6 +538,8 @@
 
   </div>
 
+
+  <!-- JAVASCRIPT -->
 
   <script src="seller-dashboard.js"></script>
 
