@@ -12,13 +12,11 @@
 
   <title>Zentromax - Online Shopping</title>
 
-  <!-- Zentromax Favicon / Logo -->
   <link
     rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%232563eb'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='60' font-family='Arial' font-weight='bold' fill='white'%3EZ%3C/text%3E%3C/svg%3E"
   >
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -27,64 +25,39 @@
 <body>
 
 
-  <!-- =====================================================
-       HEADER
-       ===================================================== -->
+  <!-- ================= HEADER ================= -->
 
   <header class="header">
 
-    <!-- Logo -->
-
     <div
       class="logo"
-      onclick="window.scrollTo({top:0, behavior:'smooth'})"
-      style="cursor:pointer;"
+      onclick="goHome()"
     >
 
-      <span style="
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        width:48px;
-        height:48px;
-        background:linear-gradient(135deg,#38bdf8,#2563eb);
-        color:white;
-        border-radius:12px;
-        margin-right:10px;
-        font-size:28px;
-        font-weight:800;
-        box-shadow:0 8px 20px rgba(37,99,235,.25);
-      ">
-        Z
-      </span>
+      <span class="logo-box">Z</span>
 
-      Zentromax
+      <span class="logo-text">
+        Zentromax
+      </span>
 
     </div>
 
 
-    <!-- Search -->
-
     <div class="search">
 
       <input
-        type="text"
         id="searchInput"
+        type="text"
         placeholder="Search products..."
-        onkeyup="searchProducts()"
+        oninput="searchProducts()"
       >
 
-      <button
-        onclick="searchProducts()"
-        aria-label="Search"
-      >
+      <button onclick="searchProducts()">
         🔍
       </button>
 
     </div>
 
-
-    <!-- Account -->
 
     <div class="account">
 
@@ -95,8 +68,6 @@
     </div>
 
 
-    <!-- Orders -->
-
     <div class="orders">
 
       <small>Returns</small>
@@ -106,31 +77,30 @@
     </div>
 
 
-    <!-- Wishlist -->
-
     <div
-      class="wishlist"
-      onclick="showWishlist()"
-      style="cursor:pointer;"
+      class="wishlist-top"
+      onclick="openWishlist()"
     >
 
       ❤️ Wishlist
 
-      <span id="wishlistCount">0</span>
+      <span id="wishlistCount">
+        0
+      </span>
 
     </div>
 
 
-    <!-- Cart -->
-
     <div
-      class="cart"
+      class="cart-top"
       onclick="openCart()"
     >
 
       🛒 Cart
 
-      <span id="cartCount">0</span>
+      <span id="cartCount">
+        0
+      </span>
 
     </div>
 
@@ -138,9 +108,7 @@
 
 
 
-  <!-- =====================================================
-       CATEGORIES
-       ===================================================== -->
+  <!-- ================= CATEGORIES ================= -->
 
   <nav class="categories">
 
@@ -172,40 +140,30 @@
 
 
 
-  <!-- =====================================================
-       HERO SECTION
-       ===================================================== -->
+  <!-- ================= HERO ================= -->
 
   <section class="hero">
 
     <div class="hero-content">
 
-      <p
-        style="
-          color:#38bdf8;
-          font-weight:700;
-          letter-spacing:2px;
-          text-transform:uppercase;
-          margin-bottom:10px;
-        "
-      >
-        Welcome to Zentromax
-      </p>
-
+      <div class="hero-small">
+        WELCOME TO ZENTROMAX
+      </div>
 
       <h1>
         Discover Your Next<br>
         Favorite
       </h1>
 
-
       <p>
         Great products. Better shopping.
         Welcome to Zentromax.
       </p>
 
-
-      <button onclick="scrollToProducts()">
+      <button
+        class="hero-button"
+        onclick="scrollToProducts()"
+      >
         Explore Products
       </button>
 
@@ -215,18 +173,26 @@
 
 
 
-  <!-- =====================================================
-       PRODUCTS
-       ===================================================== -->
+  <!-- ================= PRODUCTS ================= -->
 
   <main>
 
-    <h2 id="productsTitle">
-      Today's Picks
-    </h2>
+    <div class="section-heading">
 
+      <div>
 
-    <!-- JavaScript products will appear here -->
+        <span>
+          ZENTROMAX COLLECTION
+        </span>
+
+        <h2 id="productsTitle">
+          Today's Picks
+        </h2>
+
+      </div>
+
+    </div>
+
 
     <section
       class="products"
@@ -237,62 +203,22 @@
 
 
 
-  <!-- =====================================================
-       PRODUCT DETAILS MODAL
-       ===================================================== -->
-
-  <div
-    id="productModal"
-    class="product-modal"
-  >
-
-    <div class="product-modal-box">
-
-
-      <!-- Close button -->
-
-      <button
-        class="product-modal-close"
-        onclick="closeProductDetails()"
-      >
-        ✕
-      </button>
-
-
-      <!-- Product details generated by JavaScript -->
-
-      <div id="productDetails"></div>
-
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =====================================================
-       CART OVERLAY
-       ===================================================== -->
+  <!-- ================= OVERLAY ================= -->
 
   <div
     id="overlay"
     class="overlay"
-    onclick="closeCart()"
+    onclick="closeAllPanels()"
   ></div>
 
 
 
-  <!-- =====================================================
-       CART PANEL
-       ===================================================== -->
+  <!-- ================= CART ================= -->
 
   <aside
     id="cartPanel"
     class="cart-panel"
   >
-
-
-    <!-- Cart Header -->
 
     <div class="cart-header">
 
@@ -300,10 +226,9 @@
         Your Cart
       </h2>
 
-
       <button
         onclick="closeCart()"
-        aria-label="Close cart"
+        class="close-button"
       >
         ✕
       </button>
@@ -311,21 +236,25 @@
     </div>
 
 
+    <div
+      id="cartItems"
+      class="cart-items"
+    ></div>
 
-    <!-- Cart Products -->
-
-    <div id="cartItems"></div>
-
-
-
-    <!-- Cart Footer -->
 
     <div class="cart-footer">
 
-      <h3>
-        Total:
-        ₹<span id="cartTotal">0</span>
-      </h3>
+      <div class="cart-total-row">
+
+        <strong>
+          Total
+        </strong>
+
+        <strong>
+          ₹<span id="cartTotal">0</span>
+        </strong>
+
+      </div>
 
 
       <button
@@ -337,29 +266,79 @@
 
     </div>
 
+  </aside>
+
+
+
+  <!-- ================= WISHLIST ================= -->
+
+  <aside
+    id="wishlistPanel"
+    class="side-panel"
+  >
+
+    <div class="cart-header">
+
+      <h2>
+        ❤️ Wishlist
+      </h2>
+
+      <button
+        onclick="closeWishlist()"
+        class="close-button"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div
+      id="wishlistItems"
+      class="wishlist-items"
+    ></div>
 
   </aside>
 
 
 
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
+  <!-- ================= PRODUCT DETAILS ================= -->
+
+  <div
+    id="productModal"
+    class="product-modal"
+  >
+
+    <div class="product-modal-box">
+
+      <button
+        class="product-modal-close"
+        onclick="closeProductDetails()"
+      >
+        ✕
+      </button>
+
+
+      <div id="productDetails"></div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ================= FOOTER ================= -->
 
   <footer>
 
-    <div
-      style="
-        font-size:24px;
-        font-weight:800;
-        margin-bottom:10px;
-      "
-    >
-      <span style="color:#38bdf8;">
+    <div class="footer-logo">
+
+      <span class="footer-z">
         Z
       </span>
 
       Zentromax
+
     </div>
 
 
@@ -368,12 +347,28 @@
     </p>
 
 
-    <p
-      style="
-        margin-top:15px;
-        color:#94a3b8;
-      "
-    >
+    <div class="footer-links">
+
+      <span>
+        About
+      </span>
+
+      <span>
+        Contact
+      </span>
+
+      <span>
+        Privacy
+      </span>
+
+      <span>
+        Terms
+      </span>
+
+    </div>
+
+
+    <p class="copyright">
       © 2026 Zentromax. All rights reserved.
     </p>
 
@@ -381,217 +376,7 @@
 
 
 
-  <!-- =====================================================
-       JAVASCRIPT
-       ===================================================== -->
-
   <script src="script.js"></script>
-
-
-  <!-- =====================================================
-       PRODUCT DETAILS FALLBACK FUNCTIONS
-       ===================================================== -->
-
-  <script>
-
-    /*
-      Product Details functions.
-
-      These functions use the products array
-      from script.js.
-    */
-
-
-    function openProductDetails(id) {
-
-      const product = products.find(
-        p => p.id === id
-      );
-
-      if (!product) return;
-
-
-      const modal =
-        document.getElementById("productModal");
-
-      const details =
-        document.getElementById("productDetails");
-
-
-      details.innerHTML = `
-
-        <div class="product-detail">
-
-          <div>
-
-            <img
-              src="${product.image}"
-              alt="${product.name}"
-            >
-
-          </div>
-
-
-          <div>
-
-            <span style="
-              display:inline-block;
-              padding:6px 12px;
-              background:#eff6ff;
-              color:#2563eb;
-              border-radius:20px;
-              font-size:13px;
-              font-weight:700;
-              margin-bottom:12px;
-            ">
-              ${product.category}
-            </span>
-
-
-            <h2>
-              ${product.name}
-            </h2>
-
-
-            <div class="rating">
-              ⭐ ${product.rating}
-              <span style="color:#94a3b8;">
-                • Customer Reviews
-              </span>
-            </div>
-
-
-            <div class="detail-price">
-              ₹${product.price.toLocaleString("en-IN")}
-            </div>
-
-
-            <p style="
-              color:#16a34a;
-              font-weight:700;
-              margin-bottom:15px;
-            ">
-              ✓ In Stock
-            </p>
-
-
-            <p class="detail-description">
-              Experience quality and value with
-              ${product.name}.
-              Shop confidently with Zentromax and
-              enjoy a simple, secure shopping experience.
-            </p>
-
-
-            <div style="
-              display:flex;
-              gap:12px;
-              align-items:center;
-              margin-top:20px;
-            ">
-
-              <button
-                class="detail-add-cart"
-                onclick="addToCart(${product.id}); closeProductDetails();"
-              >
-                🛒 Add to Cart
-              </button>
-
-
-              <button
-                class="wishlist-button"
-                onclick="addToWishlist(${product.id})"
-                title="Add to Wishlist"
-              >
-                ♡
-              </button>
-
-            </div>
-
-
-            <div style="
-              margin-top:25px;
-              padding-top:20px;
-              border-top:1px solid #e2e8f0;
-              color:#64748b;
-              line-height:1.8;
-            ">
-
-              🚚 <strong>Fast Delivery</strong>
-              <br>
-
-              🔒 <strong>Secure Shopping</strong>
-              <br>
-
-              ↩️ <strong>Easy Returns</strong>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      modal.classList.add("show");
-
-      document.body.style.overflow = "hidden";
-
-    }
-
-
-
-    function closeProductDetails() {
-
-      const modal =
-        document.getElementById("productModal");
-
-      modal.classList.remove("show");
-
-      document.body.style.overflow = "";
-
-    }
-
-
-
-    /*
-      Close product modal when clicking
-      outside the white box.
-    */
-
-    document
-      .getElementById("productModal")
-      .addEventListener("click", function(event) {
-
-        if (event.target === this) {
-
-          closeProductDetails();
-
-        }
-
-      });
-
-
-    /*
-      ESC key closes product modal.
-    */
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (event.key === "Escape") {
-
-          closeProductDetails();
-
-        }
-
-      }
-    );
-
-  </script>
-
 
 </body>
 
