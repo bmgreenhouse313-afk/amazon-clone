@@ -1,383 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta charset="UTF-8">
+    <title>Zentromax - Online Shopping</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Zentromax - Online Shopping</title>
-
-  <link
-    rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%232563eb'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='60' font-family='Arial' font-weight='bold' fill='white'%3EZ%3C/text%3E%3C/svg%3E"
-  >
-
-  <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+<!-- HEADER -->
+<header class="header">
 
-  <!-- ================= HEADER ================= -->
-
-  <header class="header">
-
-    <div
-      class="logo"
-      onclick="goHome()"
-    >
-
-      <span class="logo-box">Z</span>
-
-      <span class="logo-text">
-        Zentromax
-      </span>
-
+    <div class="logo" onclick="goHome()">
+        <div class="logo-icon">Z</div>
+        <span>Zentromax</span>
     </div>
 
-
-    <div class="search">
-
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Search products..."
-        oninput="searchProducts()"
-      >
-
-      <button onclick="searchProducts()">
-        🔍
-      </button>
-
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+            onkeyup="searchProducts()"
+        >
+        <button onclick="searchProducts()">🔍</button>
     </div>
 
-
-    <div class="account">
-
-      <small>Hello, Sign in</small>
-
-      <strong>Account & Lists</strong>
-
+    <div class="account" onclick="openLogin()">
+        <small>Hello, Sign in</small>
+        <strong>Account & Lists</strong>
     </div>
-
 
     <div class="orders">
-
-      <small>Returns</small>
-
-      <strong>& Orders</strong>
-
+        <small>Returns</small>
+        <strong>& Orders</strong>
     </div>
 
-
-    <div
-      class="wishlist-top"
-      onclick="openWishlist()"
-    >
-
-      ❤️ Wishlist
-
-      <span id="wishlistCount">
-        0
-      </span>
-
+    <div class="wishlist">
+        ❤️ Wishlist
+        <span id="wishlistCount">0</span>
     </div>
 
-
-    <div
-      class="cart-top"
-      onclick="openCart()"
-    >
-
-      🛒 Cart
-
-      <span id="cartCount">
-        0
-      </span>
-
+    <div class="cart-button" onclick="openCart()">
+        🛒 Cart
+        <span id="cartCount">0</span>
     </div>
 
-  </header>
+</header>
 
 
+<!-- CATEGORIES -->
+<nav class="categories">
 
-  <!-- ================= CATEGORIES ================= -->
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('electronics')">Electronics</button>
+    <button onclick="filterCategory('fashion')">Fashion</button>
+    <button onclick="filterCategory('home')">Home</button>
+    <button onclick="filterCategory('books')">Books</button>
+    <button onclick="filterCategory('beauty')">Beauty</button>
 
-  <nav class="categories">
-
-    <button onclick="filterCategory('all')">
-      All
-    </button>
-
-    <button onclick="filterCategory('electronics')">
-      Electronics
-    </button>
-
-    <button onclick="filterCategory('fashion')">
-      Fashion
-    </button>
-
-    <button onclick="filterCategory('home')">
-      Home
-    </button>
-
-    <button onclick="filterCategory('books')">
-      Books
-    </button>
-
-    <button onclick="filterCategory('beauty')">
-      Beauty
-    </button>
-
-  </nav>
+</nav>
 
 
-
-  <!-- ================= HERO ================= -->
-
-  <section class="hero">
+<!-- HERO -->
+<section class="hero">
 
     <div class="hero-content">
 
-      <div class="hero-small">
-        WELCOME TO ZENTROMAX
-      </div>
+        <p class="hero-small">WELCOME TO ZENTROMAX</p>
 
-      <h1>
-        Discover Your Next<br>
-        Favorite
-      </h1>
+        <h1>
+            Discover Your Next<br>
+            Favorite
+        </h1>
 
-      <p>
-        Great products. Better shopping.
-        Welcome to Zentromax.
-      </p>
+        <p>
+            Great products. Better shopping.
+        </p>
 
-      <button
-        class="hero-button"
-        onclick="scrollToProducts()"
-      >
-        Explore Products
-      </button>
+        <button onclick="scrollToProducts()">
+            Explore Products
+        </button>
 
     </div>
 
-  </section>
+</section>
 
 
+<!-- PRODUCTS -->
+<main>
 
-  <!-- ================= PRODUCTS ================= -->
-
-  <main>
-
-    <div class="section-heading">
-
-      <div>
-
-        <span>
-          ZENTROMAX COLLECTION
-        </span>
-
-        <h2 id="productsTitle">
-          Today's Picks
-        </h2>
-
-      </div>
-
-    </div>
-
+    <h2 id="productsTitle">Today's Picks</h2>
 
     <section
-      class="products"
-      id="products"
-    ></section>
+        class="products"
+        id="products">
+    </section>
 
-  </main>
+</main>
 
 
-
-  <!-- ================= OVERLAY ================= -->
-
-  <div
-    id="overlay"
+<!-- CART OVERLAY -->
+<div
     class="overlay"
-    onclick="closeAllPanels()"
-  ></div>
+    id="overlay"
+    onclick="closeCart()">
+</div>
 
 
-
-  <!-- ================= CART ================= -->
-
-  <aside
-    id="cartPanel"
+<!-- CART -->
+<aside
     class="cart-panel"
-  >
+    id="cartPanel">
 
     <div class="cart-header">
 
-      <h2>
-        Your Cart
-      </h2>
+        <h2>Your Cart</h2>
 
-      <button
-        onclick="closeCart()"
-        class="close-button"
-      >
-        ✕
-      </button>
+        <button onclick="closeCart()">
+            ✕
+        </button>
 
     </div>
 
-
     <div
-      id="cartItems"
-      class="cart-items"
-    ></div>
-
+        id="cartItems"
+        class="cart-items">
+    </div>
 
     <div class="cart-footer">
 
-      <div class="cart-total-row">
+        <h3>
+            Total:
+            ₹<span id="cartTotal">0</span>
+        </h3>
 
-        <strong>
-          Total
-        </strong>
-
-        <strong>
-          ₹<span id="cartTotal">0</span>
-        </strong>
-
-      </div>
-
-
-      <button
-        class="checkout"
-        onclick="checkout()"
-      >
-        Proceed to Checkout
-      </button>
+        <button
+            class="checkout"
+            onclick="checkout()">
+            Proceed to Checkout
+        </button>
 
     </div>
 
-  </aside>
+</aside>
 
 
+<!-- LOGIN MODAL -->
+<div
+    class="modal"
+    id="loginModal">
 
-  <!-- ================= WISHLIST ================= -->
+    <div class="login-box">
 
-  <aside
-    id="wishlistPanel"
-    class="side-panel"
-  >
+        <button
+            class="close-login"
+            onclick="closeLogin()">
+            ✕
+        </button>
 
-    <div class="cart-header">
+        <div class="login-logo">
+            <div class="logo-icon">Z</div>
+            Zentromax
+        </div>
 
-      <h2>
-        ❤️ Wishlist
-      </h2>
+        <h2>Sign in</h2>
 
-      <button
-        onclick="closeWishlist()"
-        class="close-button"
-      >
-        ✕
-      </button>
+        <label>Email or mobile number</label>
 
-    </div>
+        <input
+            type="text"
+            id="loginEmail"
+            placeholder="Enter email or mobile">
 
+        <label>Password</label>
 
-    <div
-      id="wishlistItems"
-      class="wishlist-items"
-    ></div>
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter password">
 
-  </aside>
+        <button
+            class="login-button"
+            onclick="login()">
+            Continue
+        </button>
 
+        <p class="login-help">
+            By continuing, you agree to Zentromax
+            Terms & Conditions.
+        </p>
 
+        <hr>
 
-  <!-- ================= PRODUCT DETAILS ================= -->
+        <p>
+            New to Zentromax?
+        </p>
 
-  <div
-    id="productModal"
-    class="product-modal"
-  >
-
-    <div class="product-modal-box">
-
-      <button
-        class="product-modal-close"
-        onclick="closeProductDetails()"
-      >
-        ✕
-      </button>
-
-
-      <div id="productDetails"></div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer>
-
-    <div class="footer-logo">
-
-      <span class="footer-z">
-        Z
-      </span>
-
-      Zentromax
+        <button
+            class="create-account"
+            onclick="createAccount()">
+            Create your Zentromax account
+        </button>
 
     </div>
 
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <h2>Zentromax</h2>
 
     <p>
-      Smart shopping. Better choices.
+        Your trusted online shopping destination.
     </p>
 
-
-    <div class="footer-links">
-
-      <span>
-        About
-      </span>
-
-      <span>
-        Contact
-      </span>
-
-      <span>
-        Privacy
-      </span>
-
-      <span>
-        Terms
-      </span>
-
-    </div>
-
-
-    <p class="copyright">
-      © 2026 Zentromax. All rights reserved.
+    <p>
+        © 2026 Zentromax. All rights reserved.
     </p>
 
-  </footer>
+</footer>
 
 
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
