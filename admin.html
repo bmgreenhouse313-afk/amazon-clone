@@ -37,7 +37,7 @@
       </button>
 
       <button onclick="showSection('settings')">
-        ⚙️ Settings
+        ⚙️ Website Editor
       </button>
 
     </nav>
@@ -218,8 +218,8 @@
       <div class="section-actions">
 
         <div>
-          <h2>Store Settings</h2>
-          <p>Customize your Zentromax store</p>
+          <h2>Website Editor</h2>
+          <p>Change your Main Zentromax website from this panel.</p>
         </div>
 
       </div>
@@ -227,25 +227,58 @@
 
       <div class="panel settings-panel">
 
-        <label>Store Name</label>
+        <h3 style="margin-bottom:8px">Branding</h3>
+        <p style="color:#64748b;font-size:13px">These changes appear on the Main Website.</p>
 
-        <input
-          id="storeName"
-          value="Zentromax">
+        <label>Store Name</label>
+        <input id="storeName" value="Zentromax">
 
         <label>Logo Letter</label>
+        <input id="logoLetter" maxlength="2" value="Z">
 
-        <input
-          id="logoLetter"
-          maxlength="1"
-          value="Z">
+        <label>Logo Image URL (optional)</label>
+        <input id="logoImage" type="url" placeholder="https://example.com/logo.png">
+
+        <label>Or Choose Logo File</label>
+        <input id="logoFile" type="file" accept="image/*">
+
+        <label>Favicon URL (optional)</label>
+        <input id="faviconUrl" type="url" placeholder="https://example.com/favicon.png">
 
         <label>Store Description</label>
-
         <textarea id="storeDescription">Smart Shopping. Better Living.</textarea>
 
+        <hr style="margin:25px 0;border:0;border-top:1px solid #edf1f6">
+
+        <h3 style="margin-bottom:8px">Homepage</h3>
+
+        <label>Hero Eyebrow</label>
+        <input id="heroEyebrow" value="WELCOME TO ZENTROMAX">
+
+        <label>Hero Heading</label>
+        <textarea id="heroTitle" rows="2">Smart Shopping.
+Better Living.</textarea>
+
+        <label>Hero Text</label>
+        <textarea id="heroText">Discover quality products, great prices and a better way to shop online.</textarea>
+
+        <label>Hero Button Text</label>
+        <input id="heroButton" value="Shop Now →">
+
+        <label>Hero Background Image URL (optional)</label>
+        <input id="heroImage" type="url" placeholder="https://example.com/banner.jpg">
+
+        <label>Or Choose Hero Image File</label>
+        <input id="heroFile" type="file" accept="image/*">
+
+        <label>Products Section Label</label>
+        <input id="productsEyebrow" value="FEATURED COLLECTION">
+
+        <label>Products Section Title</label>
+        <input id="productsTitle" value="Today's Picks">
+
         <button class="primary" onclick="saveSettings()">
-          Save Settings
+          Save Website Changes
         </button>
 
       </div>
@@ -339,6 +372,12 @@
           id="productImage"
           required
           placeholder="https://...">
+
+        <label>Product Description</label>
+        <textarea id="productDescription" rows="5" placeholder="Write product details..." style="width:100%;padding:12px;border:1px solid #dbe3ef;border-radius:8px;outline:none;font-size:14px;resize:vertical"></textarea>
+
+        <label>Reviews Count</label>
+        <input id="productReviews" type="number" min="0" value="0">
 
 
         <button

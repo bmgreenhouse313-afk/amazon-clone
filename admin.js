@@ -79,6 +79,20 @@ let products =
   JSON.parse(localStorage.getItem("zentromaxProducts")) ||
   defaultProducts;
 
+if (!localStorage.getItem("zentromaxProducts")) {
+  localStorage.setItem("zentromaxProducts", JSON.stringify(products));
+}
+
+const defaultSettings = {
+  name: "Zentromax", logo: "Z", logoImage: "", faviconUrl: "",
+  description: "Smart Shopping. Better Living.",
+  heroEyebrow: "WELCOME TO ZENTROMAX",
+  heroTitle: "Smart Shopping.\nBetter Living.",
+  heroText: "Discover quality products, great prices and a better way to shop online.",
+  heroButton: "Shop Now →", heroImage: "",
+  productsEyebrow: "FEATURED COLLECTION", productsTitle: "Today's Picks"
+};
+
 let orders =
   JSON.parse(localStorage.getItem("zentromaxOrders")) ||
   [];
@@ -362,6 +376,7 @@ function renderProducts() {
             <th>Category</th>
             <th>Price</th>
             <th>Rating</th>
+            <th>Description</th>
             <th>Actions</th>
 
           </tr>
@@ -414,12 +429,18 @@ function renderProducts() {
                 ⭐ ${product.rating}
               </td>
 
+              <td>
+                <div style="max-width:260px;color:#64748b;line-height:1.45">
+                  ${escapeHTML(product.description || "No description added.")}
+                </div>
+              </td>
+
 
               <td>
 
                 <button
                   class="edit-btn"
-                  onclick="editProduct(${product.id})">
+                  onclick="editProduct('${escapeHTML(String(product.id))}')">
 
                   ✏️ Edit
 
@@ -428,7 +449,7 @@ function renderProducts() {
 
                 <button
                   class="delete-btn"
-                  onclick="deleteProduct(${product.id})">
+                  onclick="deleteProduct('${escapeHTML(String(product.id))}')">
 
                   🗑️ Delete
 
@@ -487,6 +508,12 @@ function openProductForm() {
 
   document.getElementById("productImage")
     .value = "";
+
+  document.getElementById("productDescription")
+    .value = "";
+
+  document.getElementById("productReviews")
+    .value = "0";
 
 
   modal.classList.add("show");
@@ -550,6 +577,13 @@ function saveProduct(event) {
     document.getElementById("productImage")
       .value.trim();
 
+  const description =
+    document.getElementById("productDescription")
+      .value.trim();
+
+  const reviews =
+    Number(document.getElementById("productReviews").value) || 0;
+
 
   if (!name || !price || !image) {
 
@@ -566,7 +600,7 @@ function saveProduct(event) {
     const product =
       products.find(
         product =>
-          product.id === Number(id)
+          String(product.id) === String(id)
       );
 
 
@@ -577,6 +611,8 @@ function saveProduct(event) {
       product.price = price;
       product.rating = rating;
       product.image = image;
+      product.description = description;
+      product.reviews = reviews;
 
     }
 
@@ -602,7 +638,19 @@ function saveProduct(event) {
         rating,
 
       image:
-        image
+        image,
+
+      description:
+        description,
+
+      reviews:
+        reviews,
+
+      sellerId:
+        "admin",
+
+      sellerName:
+        "Zentromax Admin"
 
     };
 
@@ -638,7 +686,7 @@ function editProduct(id) {
   const product =
     products.find(
       product =>
-        product.id === Number(id)
+        String(product.id) === String(id)
     );
 
 
@@ -672,6 +720,12 @@ function editProduct(id) {
   document.getElementById("productImage")
     .value = product.image;
 
+  document.getElementById("productDescription")
+    .value = product.description || "";
+
+  document.getElementById("productReviews")
+    .value = product.reviews || 0;
+
 
   document.getElementById("productModal")
     .classList.add("show");
@@ -687,7 +741,7 @@ function deleteProduct(id) {
   const product =
     products.find(
       product =>
-        product.id === Number(id)
+        String(product.id) === String(id)
     );
 
 
@@ -813,124 +867,87 @@ function renderOrders() {
 
 
 // ===============================
-// SETTINGS
+// WEBSITE EDITOR / SETTINGS
 // ===============================
+
+function getSettings() {
+  return { ...defaultSettings, ...(JSON.parse(localStorage.getItem("zentromaxSettings")) || {}) };
+}
 
 function saveSettings() {
-
-  const name =
-    document.getElementById("storeName")
-      .value.trim();
-
-
-  const logo =
-    document.getElementById("logoLetter")
-      .value.trim();
-
-
-  const description =
-    document.getElementById("storeDescription")
-      .value.trim();
-
+  const current = getSettings();
+  const logoFile = document.getElementById("logoFile").files[0];
+  const heroFile = document.getElementById("heroFile").files[0];
 
   const settings = {
-
-    name:
-      name || "Zentromax",
-
-    logo:
-      logo || "Z",
-
-    description:
-      description ||
-      "Smart Shopping. Better Living."
-
+    name: document.getElementById("storeName").value.trim() || defaultSettings.name,
+    logo: document.getElementById("logoLetter").value.trim() || defaultSettings.logo,
+    logoImage: document.getElementById("logoImage").value.trim() || current.logoImage || "",
+    faviconUrl: document.getElementById("faviconUrl").value.trim() || current.faviconUrl || "",
+    description: document.getElementById("storeDescription").value.trim() || defaultSettings.description,
+    heroEyebrow: document.getElementById("heroEyebrow").value.trim() || defaultSettings.heroEyebrow,
+    heroTitle: document.getElementById("heroTitle").value.trim() || defaultSettings.heroTitle,
+    heroText: document.getElementById("heroText").value.trim() || defaultSettings.heroText,
+    heroButton: document.getElementById("heroButton").value.trim() || defaultSettings.heroButton,
+    heroImage: document.getElementById("heroImage").value.trim() || current.heroImage || "",
+    productsEyebrow: document.getElementById("productsEyebrow").value.trim() || defaultSettings.productsEyebrow,
+    productsTitle: document.getElementById("productsTitle").value.trim() || defaultSettings.productsTitle
   };
 
+  const files = [];
+  if (logoFile) files.push([logoFile, "logoImage"]);
+  if (heroFile) files.push([heroFile, "heroImage"]);
 
-  localStorage.setItem(
-    "zentromaxSettings",
-    JSON.stringify(settings)
-  );
+  const finish = () => {
+    localStorage.setItem("zentromaxSettings", JSON.stringify(settings));
+    applyAdminBranding(settings);
+    alert("Website changes saved successfully. Open or refresh the Main Website to see them.");
+  };
 
+  if (!files.length) {
+    finish();
+    return;
+  }
 
-  document.title =
-    settings.name + " Admin";
-
-
-  document.querySelector(".brand span")
-    .textContent =
-    settings.name;
-
-
-  document.querySelector(".brand-logo")
-    .textContent =
-    settings.logo;
-
-
-  alert("Settings saved successfully!");
+  let remaining = files.length;
+  files.forEach(([file, key]) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      settings[key] = reader.result;
+      remaining -= 1;
+      if (remaining === 0) finish();
+    };
+    reader.readAsDataURL(file);
+  });
 }
-
-
-// ===============================
-// LOAD SETTINGS
-// ===============================
 
 function loadSettings() {
-
-  const settings =
-    JSON.parse(
-      localStorage.getItem(
-        "zentromaxSettings"
-      )
-    );
-
-
-  if (!settings) return;
-
-
-  const storeName =
-    document.getElementById("storeName");
-
-  const logoLetter =
-    document.getElementById("logoLetter");
-
-  const storeDescription =
-    document.getElementById("storeDescription");
-
-
-  if (storeName) {
-    storeName.value =
-      settings.name;
-  }
-
-
-  if (logoLetter) {
-    logoLetter.value =
-      settings.logo;
-  }
-
-
-  if (storeDescription) {
-    storeDescription.value =
-      settings.description;
-  }
-
-
-  document.querySelector(".brand span")
-    .textContent =
-    settings.name;
-
-
-  document.querySelector(".brand-logo")
-    .textContent =
-    settings.logo;
-
-
-  document.title =
-    settings.name + " Admin";
+  const settings = getSettings();
+  const fields = {
+    storeName: settings.name, logoLetter: settings.logo, logoImage: settings.logoImage,
+    faviconUrl: settings.faviconUrl, storeDescription: settings.description,
+    heroEyebrow: settings.heroEyebrow, heroTitle: settings.heroTitle, heroText: settings.heroText,
+    heroButton: settings.heroButton, heroImage: settings.heroImage,
+    productsEyebrow: settings.productsEyebrow, productsTitle: settings.productsTitle
+  };
+  Object.entries(fields).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+  });
+  applyAdminBranding(settings);
 }
 
+function applyAdminBranding(settings) {
+  const brand = document.querySelector(".brand span");
+  const mark = document.querySelector(".brand-logo");
+  if (brand) brand.textContent = settings.name;
+  if (mark) {
+    if (settings.logoImage) {
+      mark.innerHTML = `<img src="${escapeHTML(settings.logoImage)}" alt="Logo" style="width:100%;height:100%;object-fit:contain;border-radius:10px">`;
+    } else { mark.textContent = settings.logo; }
+  }
+  document.title = settings.name + " Admin";
+}
 
 // ===============================
 // LOGOUT
@@ -993,6 +1010,9 @@ document.addEventListener(
 
     renderOrders();
 
+    if (!localStorage.getItem("zentromaxSettings")) {
+      localStorage.setItem("zentromaxSettings", JSON.stringify(defaultSettings));
+    }
     loadSettings();
 
   }

@@ -6,7 +6,7 @@
 
 /* PRODUCTS */
 
-const products = [
+const defaultProducts = [
 
   {
     id: 1,
@@ -15,7 +15,8 @@ const products = [
     price: 1499,
     rating: 4.5,
     reviews: 128,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80",
+    description: "Premium wireless Bluetooth headphones with clear sound, comfortable ear cushions and long battery life."
   },
 
   {
@@ -25,7 +26,8 @@ const products = [
     price: 2499,
     rating: 4.3,
     reviews: 96,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80",
+    description: "Smart watch with a modern display, useful everyday features and a comfortable design."
   },
 
   {
@@ -35,7 +37,8 @@ const products = [
     price: 899,
     rating: 4.2,
     reviews: 74,
-    image: "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?auto=format&fit=crop&w=700&q=80",
+    description: "Comfortable men's casual shirt designed for everyday wear and easy styling."
   },
 
   {
@@ -45,7 +48,8 @@ const products = [
     price: 1299,
     rating: 4.4,
     reviews: 113,
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80",
+    description: "Stylish women's fashion bag with a practical design for everyday use."
   },
 
   {
@@ -55,7 +59,8 @@ const products = [
     price: 799,
     rating: 4.1,
     reviews: 52,
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",
+    description: "Modern table lamp that adds warm, practical lighting to your home."
   },
 
   {
@@ -65,7 +70,8 @@ const products = [
     price: 399,
     rating: 4.8,
     reviews: 241,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=80",
+    description: "A popular personal-finance book about money, investing and building better financial habits."
   },
 
   {
@@ -75,7 +81,8 @@ const products = [
     price: 999,
     rating: 4.5,
     reviews: 87,
-    image: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80",
+    description: "A skincare beauty set for a simple and refreshing personal-care routine."
   },
 
   {
@@ -85,10 +92,64 @@ const products = [
     price: 1199,
     rating: 4.4,
     reviews: 142,
-    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80"
+    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80",
+    description: "Portable Bluetooth speaker with clear audio and a compact design for everyday listening."
   }
 
 ];
+
+let products = JSON.parse(localStorage.getItem("zentromaxProducts")) || defaultProducts;
+if (!localStorage.getItem("zentromaxProducts")) {
+  localStorage.setItem("zentromaxProducts", JSON.stringify(products));
+}
+
+const defaultSettings = {
+  name: "Zentromax", logo: "Z", logoImage: "", faviconUrl: "",
+  description: "Smart Shopping. Better Living.",
+  heroEyebrow: "WELCOME TO ZENTROMAX",
+  heroTitle: "Smart Shopping.\nBetter Living.",
+  heroText: "Discover quality products, great prices and a better way to shop online.",
+  heroButton: "Shop Now →", heroImage: "",
+  productsEyebrow: "FEATURED COLLECTION", productsTitle: "Today's Picks"
+};
+
+function getSiteSettings() {
+  return { ...defaultSettings, ...(JSON.parse(localStorage.getItem("zentromaxSettings")) || {}) };
+}
+
+function applySiteSettings() {
+  const s = getSiteSettings();
+  document.title = s.name + " | Online Shopping";
+  const nameEl = document.getElementById("siteName");
+  if (nameEl) nameEl.textContent = s.name;
+  const mark = document.getElementById("siteLogoMark");
+  if (mark) {
+    if (s.logoImage) mark.innerHTML = `<img src="${escapeHTML(s.logoImage)}" alt="${escapeHTML(s.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:10px">`;
+    else mark.textContent = s.logo;
+  }
+  const footer = document.getElementById("footerBrand");
+  if (footer) footer.textContent = s.name;
+  const desc = document.getElementById("storeDescriptionText");
+  if (desc) desc.textContent = s.description;
+  const eyebrow = document.getElementById("heroEyebrow");
+  if (eyebrow) eyebrow.textContent = s.heroEyebrow;
+  const title = document.getElementById("heroTitle");
+  if (title) title.innerHTML = escapeHTML(s.heroTitle).replace(/\n/g, "<br>");
+  const text = document.getElementById("heroText");
+  if (text) text.textContent = s.heroText;
+  const button = document.getElementById("heroButton");
+  if (button) button.textContent = s.heroButton;
+  const pe = document.getElementById("productsEyebrow");
+  if (pe) pe.textContent = s.productsEyebrow;
+  const pt = document.getElementById("productsTitle");
+  if (pt) pt.textContent = s.productsTitle;
+  const hero = document.querySelector(".hero");
+  if (hero && s.heroImage) hero.style.backgroundImage = `linear-gradient(rgba(15,23,42,.35),rgba(15,23,42,.35)),url("${s.heroImage}")`;
+  if (s.faviconUrl) {
+    let fav = document.getElementById("siteFavicon");
+    if (fav) fav.href = s.faviconUrl;
+  }
+}
 
 
 let cart = [];
@@ -172,7 +233,7 @@ function displayProducts(list = products) {
 
         <button
           class="wishlist-btn"
-          onclick="toggleWishlist(${product.id}); event.stopPropagation();">
+          onclick="toggleWishlist('${String(product.id)}'); event.stopPropagation();">
 
           ${wished ? "❤️" : "♡"}
 
@@ -183,7 +244,7 @@ function displayProducts(list = products) {
 
       <div
         class="product-image"
-        onclick="openProductDetails(${product.id})">
+        onclick="openProductDetails('${String(product.id)}')">
 
         <img
           src="${product.image}"
@@ -195,7 +256,7 @@ function displayProducts(list = products) {
 
       <div
         class="product-info"
-        onclick="openProductDetails(${product.id})">
+        onclick="openProductDetails('${String(product.id)}')">
 
         <h3>${product.name}</h3>
 
@@ -221,7 +282,7 @@ function displayProducts(list = products) {
 
       <button
         class="add-cart"
-        onclick="addToCart(${product.id})">
+        onclick="addToCart('${String(product.id)}')">
 
         🛒 Add to Cart
 
@@ -299,7 +360,7 @@ function addToCart(id) {
 
   const product =
     products.find(
-      item => item.id === id
+      item => String(item.id) === String(id)
     );
 
   if (!product) return;
@@ -307,7 +368,7 @@ function addToCart(id) {
 
   const existing =
     cart.find(
-      item => item.id === id
+      item => String(item.id) === String(id)
     );
 
 
@@ -444,7 +505,7 @@ function increase(id) {
 
   const item =
     cart.find(
-      product => product.id === id
+      product => String(product.id) === String(id)
     );
 
   if (item) item.quantity++;
@@ -458,7 +519,7 @@ function decrease(id) {
 
   const item =
     cart.find(
-      product => product.id === id
+      product => String(product.id) === String(id)
     );
 
   if (!item) return;
@@ -483,7 +544,7 @@ function removeFromCart(id) {
 
   cart =
     cart.filter(
-      item => item.id !== id
+      item => String(item.id) !== String(id)
     );
 
   updateCart();
@@ -653,7 +714,7 @@ function toggleWishlist(id) {
 
   const product =
     products.find(
-      item => item.id === id
+      item => String(item.id) === String(id)
     );
 
   if (!product) return;
@@ -661,7 +722,7 @@ function toggleWishlist(id) {
 
   const exists =
     wishlist.some(
-      item => item.id === id
+      item => String(item.id) === String(id)
     );
 
 
@@ -669,7 +730,7 @@ function toggleWishlist(id) {
 
     wishlist =
       wishlist.filter(
-        item => item.id !== id
+        item => String(item.id) !== String(id)
       );
 
   } else {
@@ -767,12 +828,12 @@ function displayWishlist() {
         </p>
 
         <button
-          onclick="addToCart(${product.id})">
+          onclick="addToCart('${String(product.id)}')">
           Add to Cart
         </button>
 
         <button
-          onclick="toggleWishlist(${product.id})">
+          onclick="toggleWishlist('${String(product.id)}')">
           Remove
         </button>
 
@@ -794,7 +855,7 @@ function openProductDetails(id) {
 
   const product =
     products.find(
-      item => item.id === id
+      item => String(item.id) === String(id)
     );
 
   if (!product) return;
@@ -853,12 +914,7 @@ function openProductDetails(id) {
 
 
         <p class="details-description">
-
-          Premium quality ${product.name}.
-          Shop confidently with Zentromax.
-          Secure checkout and reliable delivery
-          available.
-
+          ${product.description || `Premium quality ${product.name}. Shop confidently with Zentromax. Secure checkout and reliable delivery available.`}
         </p>
 
 
@@ -979,7 +1035,7 @@ function placeOrder(event) {
 
 
   orders.unshift(order);
-
+  localStorage.setItem("zentromaxOrders", JSON.stringify(orders));
 
   cart = [];
 
@@ -1057,6 +1113,9 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
+    products = JSON.parse(localStorage.getItem("zentromaxProducts")) || products;
+    orders = JSON.parse(localStorage.getItem("zentromaxOrders")) || orders;
+    applySiteSettings();
     displayProducts();
 
     updateCart();
