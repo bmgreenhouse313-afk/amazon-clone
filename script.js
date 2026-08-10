@@ -731,7 +731,7 @@ function loginUser() {
 
 
   alert(
-    `Welcome to ShopZone, ${email}!`
+    `Welcome to ZentroMax, ${email}!`
   );
 
   closeLogin();
