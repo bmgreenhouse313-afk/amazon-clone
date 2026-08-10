@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Zentromax Seller Dashboard</title>
+
+  <link rel="stylesheet" href="seller-dashboard.css">
+</head>
+
+<body>
+
+  <aside class="seller-sidebar">
+
+    <div class="seller-brand">
+      <div class="seller-logo">Z</div>
+      <span>Zentromax</span>
+    </div>
+
+    <div class="seller-label">
+      SELLER CENTER
+    </div>
+
+    <nav>
+
+      <button
+        class="nav-btn active"
+        onclick="showSellerSection('dashboard')">
+        📊 Dashboard
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showSellerSection('products')">
+        📦 My Products
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showSellerSection('orders')">
+        🛒 My Orders
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="showSellerSection('profile')">
+        👤 My Profile
+      </button>
+
+    </nav>
+
+    <button
+      class="seller-logout"
+      onclick="sellerLogout()">
+      🚪 Logout
+    </button>
+
+  </aside>
+
+
+  <main class="seller-main">
+
+    <header class="seller-topbar">
+
+      <div>
+        <h1 id="sellerPageTitle">
+          Dashboard
+        </h1>
+
+        <p>
+          Manage your Zentromax store
+        </p>
+      </div>
+
+      <div class="seller-account">
+
+        <div class="seller-avatar">
+          S
+        </div>
+
+        <div>
+          <strong id="sellerName">
+            Seller
+          </strong>
+
+          <small>
+            Seller Account
+          </small>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+      id="sellerDashboard"
+      class="seller-section active">
+
+      <div class="welcome-card">
+
+        <div>
+
+          <span>Welcome back 👋</span>
+
+          <h2 id="welcomeSeller">
+            Welcome, Seller
+          </h2>
+
+          <p>
+            Manage your products and orders from here.
+          </p>
+
+        </div>
+
+        <button
+          onclick="openSellerProductForm()">
+
+          + Add Product
+
+        </button>
+
+      </div>
+
+
+      <div class="seller-stats">
+
+        <div class="seller-stat">
+
+          <div class="stat-icon blue">
+            📦
+          </div>
+
+          <div>
+            <h3 id="sellerProductCount">
+              0
+            </h3>
+
+            <p>
+              My Products
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="seller-stat">
+
+          <div class="stat-icon orange">
+            🛒
+          </div>
+
+          <div>
+            <h3 id="sellerOrderCount">
+              0
+            </h3>
+
+            <p>
+              My Orders
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="seller-stat">
+
+          <div class="stat-icon green">
+            💰
+          </div>
+
+          <div>
+            <h3 id="sellerSales">
+              ₹0
+            </h3>
+
+            <p>
+              Total Sales
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="seller-panel">
+
+        <div class="panel-heading">
+
+          <div>
+            <h2>
+              My Products
+            </h2>
+
+            <p>
+              Products added by your account
+            </p>
+          </div>
+
+          <button
+            onclick="showSellerSection('products')">
+
+            View All
+
+          </button>
+
+        </div>
+
+        <div id="dashboardProducts"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MY PRODUCTS -->
+
+    <section
+      id="sellerProducts"
+      class="seller-section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            My Products
+          </h2>
+
+          <p>
+            Only products added by your seller account
+          </p>
+
+        </div>
+
+        <button
+          class="primary-btn"
+          onclick="openSellerProductForm()">
+
+          + Add Product
+
+        </button>
+
+      </div>
+
+
+      <div class="seller-panel">
+
+        <div class="seller-search">
+
+          <input
+            type="text"
+            id="sellerProductSearch"
+            placeholder="Search your products..."
+            oninput="renderSellerProducts()">
+
+        </div>
+
+        <div id="sellerProductTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MY ORDERS -->
+
+    <section
+      id="sellerOrders"
+      class="seller-section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            My Orders
+          </h2>
+
+          <p>
+            Orders containing your products
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="seller-panel">
+
+        <div id="sellerOrdersTable"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section
+      id="sellerProfile"
+      class="seller-section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            My Profile
+          </h2>
+
+          <p>
+            Your seller account information
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="seller-panel profile-panel">
+
+        <div class="profile-avatar">
+          S
+        </div>
+
+        <div class="profile-info">
+
+          <h3 id="profileName">
+            Seller
+          </h3>
+
+          <p id="profileEmail">
+            seller@example.com
+          </p>
+
+          <span class="seller-status">
+            ● Active Seller
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+
+  <div
+    id="sellerProductModal"
+    class="seller-modal">
+
+    <div class="seller-modal-card">
+
+      <button
+        class="modal-close"
+        onclick="closeSellerProductForm()">
+
+        ✕
+
+      </button>
+
+      <h2 id="sellerFormTitle">
+        Add Product
+      </h2>
+
+      <p class="modal-description">
+        Add a product to your Zentromax store.
+      </p>
+
+
+      <form
+        id="sellerProductForm"
+        onsubmit="saveSellerProduct(event)">
+
+        <input
+          type="hidden"
+          id="sellerEditProductId">
+
+
+        <label>
+          Product Name
+        </label>
+
+        <input
+          type="text"
+          id="sellerProductName"
+          placeholder="Example: Wireless Headphones"
+          required>
+
+
+        <label>
+          Category
+        </label>
+
+        <select
+          id="sellerProductCategory"
+          required>
+
+          <option value="electronics">
+            Electronics
+          </option>
+
+          <option value="fashion">
+            Fashion
+          </option>
+
+          <option value="home">
+            Home
+          </option>
+
+          <option value="books">
+            Books
+          </option>
+
+          <option value="beauty">
+            Beauty
+          </option>
+
+        </select>
+
+
+        <label>
+          Price ₹
+        </label>
+
+        <input
+          type="number"
+          id="sellerProductPrice"
+          min="1"
+          placeholder="1499"
+          required>
+
+
+        <label>
+          Rating
+        </label>
+
+        <input
+          type="number"
+          id="sellerProductRating"
+          min="1"
+          max="5"
+          step="0.1"
+          value="4.5">
+
+
+        <label>
+          Product Image URL
+        </label>
+
+        <input
+          type="url"
+          id="sellerProductImage"
+          placeholder="https://example.com/image.jpg"
+          required>
+
+
+        <button
+          type="submit"
+          class="save-product-btn">
+
+          Save Product
+
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="seller-dashboard.js"></script>
+
+</body>
+</html>
