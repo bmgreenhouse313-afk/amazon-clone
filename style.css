@@ -1243,3 +1243,65 @@ footer {
     padding: 28px 20px;
   }
 }
+/* ================= ZENTROMAX BRAND ================= */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #38bdf8,
+    #2563eb
+  );
+
+  color: white;
+
+  font-size: 23px;
+  font-weight: 900;
+
+  box-shadow:
+    0 6px 18px rgba(37, 99, 235, 0.35);
+}
+
+.logo-text {
+  color: white;
+
+  font-size: 25px;
+
+  font-weight: 850;
+
+  letter-spacing: -0.8px;
+}
+
+.logo:hover .logo-icon {
+  transform: rotate(-5deg) scale(1.05);
+
+  box-shadow:
+    0 8px 25px rgba(56, 189, 248, 0.45);
+}
+
+.logo:hover .logo-text {
+  color: #38bdf8;
+}
+
+.logo-icon,
+.logo-text {
+  transition: 0.25s ease;
+}
