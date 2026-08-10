@@ -1,5 +1,5 @@
 /* =========================
-   SELLER LOGIN CHECK
+   LOGIN CHECK
 ========================= */
 
 const currentSeller = JSON.parse(
@@ -12,24 +12,26 @@ if (!currentSeller) {
 
 
 /* =========================
-   SELLER PRODUCTS
+   PRODUCTS STORAGE
 ========================= */
 
-let sellerProducts = JSON.parse(
-  localStorage.getItem("zentromaxProducts")
-) || [];
+let sellerProducts =
+  JSON.parse(
+    localStorage.getItem("zentromaxProducts")
+  ) || [];
 
 
-/*
-  IMPORTANT:
-  ಪ್ರತಿಯೊಂದು productಗೆ sellerId save ಮಾಡಲಾಗುತ್ತದೆ.
-  ಆದ್ದರಿಂದ seller ತನ್ನ products ಮಾತ್ರ ನೋಡುತ್ತಾನೆ.
-*/
+/* =========================
+   GET MY PRODUCTS
+========================= */
 
 function getMyProducts() {
+
   return sellerProducts.filter(
-    product => product.sellerId === currentSeller.id
+    product =>
+      product.sellerId === currentSeller.id
   );
+
 }
 
 
@@ -39,22 +41,29 @@ function getMyProducts() {
 
 function loadSellerInformation() {
 
-  document.getElementById("sellerName").textContent =
-    currentSeller.name;
+  document.getElementById(
+    "sellerName"
+  ).textContent = currentSeller.name;
 
-  document.getElementById("welcomeSeller").textContent =
+  document.getElementById(
+    "welcomeSeller"
+  ).textContent =
     "Welcome, " + currentSeller.name;
 
-  document.getElementById("profileName").textContent =
+  document.getElementById(
+    "profileName"
+  ).textContent =
     currentSeller.name;
 
-  document.getElementById("profileEmail").textContent =
+  document.getElementById(
+    "profileEmail"
+  ).textContent =
     currentSeller.email;
 }
 
 
 /* =========================
-   SECTION NAVIGATION
+   NAVIGATION
 ========================= */
 
 function showSellerSection(section) {
@@ -66,11 +75,15 @@ function showSellerSection(section) {
     profile: "sellerProfile"
   };
 
+
   Object.values(sections).forEach(id => {
+
     document
       .getElementById(id)
       .classList.remove("active");
+
   });
+
 
   document
     .getElementById(sections[section])
@@ -78,47 +91,71 @@ function showSellerSection(section) {
 
 
   const titles = {
+
     dashboard: "Dashboard",
     products: "My Products",
     orders: "My Orders",
     profile: "My Profile"
+
   };
+
 
   document.getElementById(
     "sellerPageTitle"
   ).textContent = titles[section];
 
 
-  document.querySelectorAll(".nav-btn").forEach(
-    button => button.classList.remove("active")
-  );
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
 
-  const buttons = document.querySelectorAll(".nav-btn");
+      button.classList.remove("active");
+
+    });
+
+
+  const buttons =
+    document.querySelectorAll(".nav-btn");
+
 
   const index = {
+
     dashboard: 0,
     products: 1,
     orders: 2,
     profile: 3
+
   };
 
+
   if (buttons[index[section]]) {
+
     buttons[index[section]]
       .classList.add("active");
+
+  }
+
+
+  if (section === "dashboard") {
+
+    renderDashboardProducts();
+
   }
 
 
   if (section === "products") {
+
     renderSellerProducts();
+
   }
 
-  if (section === "dashboard") {
-    renderDashboardProducts();
-  }
 
   if (section === "orders") {
+
     renderSellerOrders();
+
   }
+
 }
 
 
@@ -133,31 +170,46 @@ function renderDashboardProducts() {
       "dashboardProducts"
     );
 
-  const products = getMyProducts();
+
+  const products =
+    getMyProducts();
+
 
   document.getElementById(
     "sellerProductCount"
-  ).textContent = products.length;
+  ).textContent =
+    products.length;
 
 
   if (products.length === 0) {
 
     container.innerHTML = `
       <div class="empty-state">
-        <h3>No products yet</h3>
-        <p>Add your first product to start selling.</p>
+
+        <h3>
+          No products yet
+        </h3>
+
+        <p>
+          Add your first product to start selling.
+        </p>
+
       </div>
     `;
 
     return;
+
   }
 
 
   const latestProducts =
-    products.slice(-5).reverse();
+    products
+      .slice(-5)
+      .reverse();
 
 
   container.innerHTML = `
+
     <div class="table-wrapper">
 
       <table class="seller-table">
@@ -165,10 +217,12 @@ function renderDashboardProducts() {
         <thead>
 
           <tr>
+
             <th>Product</th>
             <th>Category</th>
             <th>Price</th>
             <th>Rating</th>
+
           </tr>
 
         </thead>
@@ -209,7 +263,8 @@ function renderDashboardProducts() {
               </td>
 
               <td>
-                ₹${Number(product.price).toLocaleString("en-IN")}
+                ₹${Number(product.price)
+                  .toLocaleString("en-IN")}
               </td>
 
               <td>
@@ -230,7 +285,7 @@ function renderDashboardProducts() {
 
 
 /* =========================
-   ALL MY PRODUCTS
+   ALL PRODUCTS
 ========================= */
 
 function renderSellerProducts() {
@@ -240,10 +295,12 @@ function renderSellerProducts() {
       "sellerProductTable"
     );
 
+
   const searchInput =
     document.getElementById(
       "sellerProductSearch"
     );
+
 
   const query =
     searchInput.value
@@ -251,16 +308,20 @@ function renderSellerProducts() {
       .toLowerCase();
 
 
-  let products = getMyProducts();
+  let products =
+    getMyProducts();
 
 
   if (query) {
 
-    products = products.filter(product =>
-      product.name
-        .toLowerCase()
-        .includes(query)
-    );
+    products =
+      products.filter(product =>
+
+        product.name
+          .toLowerCase()
+          .includes(query)
+
+      );
 
   }
 
@@ -282,6 +343,7 @@ function renderSellerProducts() {
     `;
 
     return;
+
   }
 
 
@@ -299,6 +361,7 @@ function renderSellerProducts() {
             <th>Category</th>
             <th>Price</th>
             <th>Rating</th>
+            <th>Description</th>
             <th>Actions</th>
 
           </tr>
@@ -327,7 +390,7 @@ function renderSellerProducts() {
                     </div>
 
                     <div class="seller-product-category">
-                      Product ID: ${product.id}
+                      Product ID: ${escapeHTML(product.id)}
                     </div>
 
                   </div>
@@ -336,31 +399,57 @@ function renderSellerProducts() {
 
               </td>
 
+
               <td>
                 ${escapeHTML(product.category)}
               </td>
 
+
               <td>
-                ₹${Number(product.price).toLocaleString("en-IN")}
+                ₹${Number(product.price)
+                  .toLocaleString("en-IN")}
               </td>
+
 
               <td>
                 ⭐ ${product.rating}
               </td>
 
+
+              <td>
+
+                <div
+                  style="
+                    max-width:260px;
+                    color:#64748b;
+                    line-height:1.5;
+                  "
+                >
+
+                  ${escapeHTML(
+                    product.description ||
+                    "No description added."
+                  )}
+
+                </div>
+
+              </td>
+
+
               <td>
 
                 <button
                   class="edit-product"
-                  onclick="editSellerProduct('${product.id}')">
+                  onclick="editSellerProduct('${escapeHTML(product.id)}')">
 
                   Edit
 
                 </button>
 
+
                 <button
                   class="delete-product"
-                  onclick="deleteSellerProduct('${product.id}')">
+                  onclick="deleteSellerProduct('${escapeHTML(product.id)}')">
 
                   Delete
 
@@ -377,24 +466,26 @@ function renderSellerProducts() {
       </table>
 
     </div>
+
   `;
 }
 
 
 /* =========================
-   ADD PRODUCT FORM
+   OPEN ADD FORM
 ========================= */
 
 function openSellerProductForm() {
 
-  document.getElementById(
-    "sellerProductModal"
-  ).classList.add("show");
+  document
+    .getElementById("sellerProductModal")
+    .classList.add("show");
 
 
   document.getElementById(
     "sellerFormTitle"
-  ).textContent = "Add Product";
+  ).textContent =
+    "Add Product";
 
 
   document.getElementById(
@@ -405,14 +496,20 @@ function openSellerProductForm() {
   document.getElementById(
     "sellerEditProductId"
   ).value = "";
+
 }
 
 
+/* =========================
+   CLOSE FORM
+========================= */
+
 function closeSellerProductForm() {
 
-  document.getElementById(
-    "sellerProductModal"
-  ).classList.remove("show");
+  document
+    .getElementById("sellerProductModal")
+    .classList.remove("show");
+
 }
 
 
@@ -465,23 +562,58 @@ function saveSellerProduct(event) {
     ).value.trim();
 
 
-  if (!name || !price || !image) {
+  const description =
+    document.getElementById(
+      "sellerProductDescription"
+    ).value.trim();
 
-    alert("Please fill all required fields.");
+
+  /* VALIDATION */
+
+  if (
+    !name ||
+    !category ||
+    !price ||
+    !image ||
+    !description
+  ) {
+
+    alert(
+      "Please fill all required fields."
+    );
 
     return;
+
   }
 
 
-  /* EDIT EXISTING PRODUCT */
+  if (
+    rating < 1 ||
+    rating > 5
+  ) {
+
+    alert(
+      "Rating must be between 1 and 5."
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     EDIT PRODUCT
+  ========================== */
 
   if (editId) {
 
     const product =
       sellerProducts.find(
         item =>
-          String(item.id) === String(editId) &&
-          item.sellerId === currentSeller.id
+          String(item.id) ===
+            String(editId) &&
+          item.sellerId ===
+            currentSeller.id
       );
 
 
@@ -492,22 +624,39 @@ function saveSellerProduct(event) {
       );
 
       return;
+
     }
 
 
-    product.name = name;
-    product.category = category;
-    product.price = price;
-    product.rating = rating;
-    product.image = image;
+    product.name =
+      name;
+
+    product.category =
+      category;
+
+    product.price =
+      price;
+
+    product.rating =
+      rating;
+
+    product.image =
+      image;
+
+    product.description =
+      description;
 
 
-    alert("Product updated successfully.");
+    alert(
+      "Product updated successfully."
+    );
 
   }
 
 
-  /* ADD NEW PRODUCT */
+  /* =========================
+     ADD PRODUCT
+  ========================== */
 
   else {
 
@@ -519,41 +668,63 @@ function saveSellerProduct(event) {
         "-" +
         Date.now(),
 
-      name: name,
+      name:
+        name,
 
-      category: category,
+      category:
+        category,
 
-      price: price,
+      price:
+        price,
 
-      rating: rating,
+      rating:
+        rating,
 
-      image: image,
+      image:
+        image,
 
-      sellerId: currentSeller.id,
+      description:
+        description,
 
-      sellerName: currentSeller.name,
+      sellerId:
+        currentSeller.id,
 
-      quantity: 1
+      sellerName:
+        currentSeller.name,
+
+      createdAt:
+        new Date().toISOString()
 
     };
 
 
-    sellerProducts.push(newProduct);
+    sellerProducts.push(
+      newProduct
+    );
 
 
-    alert("Product added successfully.");
+    alert(
+      "Product added successfully."
+    );
+
   }
 
 
+  /* SAVE */
+
   localStorage.setItem(
     "zentromaxProducts",
-    JSON.stringify(sellerProducts)
+    JSON.stringify(
+      sellerProducts
+    )
   );
 
 
   closeSellerProductForm();
 
+
   refreshSellerDashboard();
+
 }
 
 
@@ -566,8 +737,10 @@ function editSellerProduct(id) {
   const product =
     sellerProducts.find(
       item =>
-        String(item.id) === String(id) &&
-        item.sellerId === currentSeller.id
+        String(item.id) ===
+          String(id) &&
+        item.sellerId ===
+          currentSeller.id
     );
 
 
@@ -578,47 +751,62 @@ function editSellerProduct(id) {
     );
 
     return;
+
   }
 
 
-  document.getElementById(
-    "sellerProductModal"
-  ).classList.add("show");
+  document
+    .getElementById("sellerProductModal")
+    .classList.add("show");
 
 
   document.getElementById(
     "sellerFormTitle"
-  ).textContent = "Edit Product";
+  ).textContent =
+    "Edit Product";
 
 
   document.getElementById(
     "sellerEditProductId"
-  ).value = product.id;
+  ).value =
+    product.id;
 
 
   document.getElementById(
     "sellerProductName"
-  ).value = product.name;
+  ).value =
+    product.name;
 
 
   document.getElementById(
     "sellerProductCategory"
-  ).value = product.category;
+  ).value =
+    product.category;
 
 
   document.getElementById(
     "sellerProductPrice"
-  ).value = product.price;
+  ).value =
+    product.price;
 
 
   document.getElementById(
     "sellerProductRating"
-  ).value = product.rating;
+  ).value =
+    product.rating;
 
 
   document.getElementById(
     "sellerProductImage"
-  ).value = product.image;
+  ).value =
+    product.image;
+
+
+  document.getElementById(
+    "sellerProductDescription"
+  ).value =
+    product.description || "";
+
 }
 
 
@@ -631,8 +819,10 @@ function deleteSellerProduct(id) {
   const product =
     sellerProducts.find(
       item =>
-        String(item.id) === String(id) &&
-        item.sellerId === currentSeller.id
+        String(item.id) ===
+          String(id) &&
+        item.sellerId ===
+          currentSeller.id
     );
 
 
@@ -643,6 +833,7 @@ function deleteSellerProduct(id) {
     );
 
     return;
+
   }
 
 
@@ -653,7 +844,9 @@ function deleteSellerProduct(id) {
 
 
   if (!confirmed) {
+
     return;
+
   }
 
 
@@ -661,19 +854,24 @@ function deleteSellerProduct(id) {
     sellerProducts.filter(
       item =>
         !(
-          String(item.id) === String(id) &&
-          item.sellerId === currentSeller.id
+          String(item.id) ===
+            String(id) &&
+          item.sellerId ===
+            currentSeller.id
         )
     );
 
 
   localStorage.setItem(
     "zentromaxProducts",
-    JSON.stringify(sellerProducts)
+    JSON.stringify(
+      sellerProducts
+    )
   );
 
 
   refreshSellerDashboard();
+
 }
 
 
@@ -697,21 +895,18 @@ function renderSellerOrders() {
     ) || [];
 
 
-  /*
-    Future orders will contain sellerId.
-    Only matching orders are shown.
-  */
-
   const myOrders =
     orders.filter(
       order =>
-        order.sellerId === currentSeller.id
+        order.sellerId ===
+        currentSeller.id
     );
 
 
   document.getElementById(
     "sellerOrderCount"
-  ).textContent = myOrders.length;
+  ).textContent =
+    myOrders.length;
 
 
   if (myOrders.length === 0) {
@@ -724,13 +919,15 @@ function renderSellerOrders() {
         </h3>
 
         <p>
-          Orders containing your products will appear here.
+          Orders containing your products
+          will appear here.
         </p>
 
       </div>
     `;
 
     return;
+
   }
 
 
@@ -743,10 +940,23 @@ function renderSellerOrders() {
         <thead>
 
           <tr>
-            <th>Order ID</th>
-            <th>Product</th>
-            <th>Amount</th>
-            <th>Status</th>
+
+            <th>
+              Order ID
+            </th>
+
+            <th>
+              Product
+            </th>
+
+            <th>
+              Amount
+            </th>
+
+            <th>
+              Status
+            </th>
+
           </tr>
 
         </thead>
@@ -758,12 +968,17 @@ function renderSellerOrders() {
             <tr>
 
               <td>
-                ${escapeHTML(String(order.id))}
+                ${escapeHTML(
+                  String(order.id)
+                )}
               </td>
 
               <td>
                 ${escapeHTML(
-                  String(order.productName || "Product")
+                  String(
+                    order.productName ||
+                    "Product"
+                  )
                 )}
               </td>
 
@@ -774,11 +989,18 @@ function renderSellerOrders() {
               </td>
 
               <td>
+
                 <span class="seller-status">
+
                   ${escapeHTML(
-                    String(order.status || "Processing")
+                    String(
+                      order.status ||
+                      "Processing"
+                    )
                   )}
+
                 </span>
+
               </td>
 
             </tr>
@@ -790,12 +1012,14 @@ function renderSellerOrders() {
       </table>
 
     </div>
+
   `;
+
 }
 
 
 /* =========================
-   TOTAL SALES
+   SALES
 ========================= */
 
 function calculateSellerSales() {
@@ -811,14 +1035,18 @@ function calculateSellerSales() {
   const myOrders =
     orders.filter(
       order =>
-        order.sellerId === currentSeller.id
+        order.sellerId ===
+        currentSeller.id
     );
 
 
   const total =
     myOrders.reduce(
       (sum, order) =>
-        sum + Number(order.amount || 0),
+        sum +
+        Number(
+          order.amount || 0
+        ),
       0
     );
 
@@ -827,12 +1055,15 @@ function calculateSellerSales() {
     "sellerSales"
   ).textContent =
     "₹" +
-    total.toLocaleString("en-IN");
+    total.toLocaleString(
+      "en-IN"
+    );
+
 }
 
 
 /* =========================
-   REFRESH DASHBOARD
+   REFRESH
 ========================= */
 
 function refreshSellerDashboard() {
@@ -852,6 +1083,7 @@ function refreshSellerDashboard() {
   renderSellerOrders();
 
   calculateSellerSales();
+
 }
 
 
@@ -865,28 +1097,46 @@ function sellerLogout() {
     "zentromaxSeller"
   );
 
+
   window.location.href =
     "seller-login.html";
+
 }
 
 
 /* =========================
-   SECURITY HELPER
+   ESCAPE HTML
 ========================= */
 
 function escapeHTML(value) {
 
   return String(value)
 
-    .replace(/&/g, "&amp;")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-    .replace(/</g, "&lt;")
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-    .replace(/>/g, "&gt;")
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
-    .replace(/"/g, "&quot;")
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-    .replace(/'/g, "&#039;");
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
 }
 
 
