@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopZone - Online Shopping</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+
+    <div class="logo">
+      Shop<span>Zone</span>
+    </div>
+
+    <div class="search">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        onkeyup="searchProducts()"
+      >
+      <button onclick="searchProducts()">🔍</button>
+    </div>
+
+    <div class="account">
+      <small>Hello, Sign in</small>
+      <strong>Account & Lists</strong>
+    </div>
+
+    <div class="orders">
+      <small>Returns</small>
+      <strong>& Orders</strong>
+    </div>
+
+    <div class="cart" onclick="openCart()">
+      🛒 Cart
+      <span id="cartCount">0</span>
+    </div>
+
+  </header>
+
+  <!-- Categories -->
+  <nav class="categories">
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('electronics')">Electronics</button>
+    <button onclick="filterCategory('fashion')">Fashion</button>
+    <button onclick="filterCategory('home')">Home</button>
+    <button onclick="filterCategory('books')">Books</button>
+    <button onclick="filterCategory('beauty')">Beauty</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <h1>Welcome to ShopZone</h1>
+      <p>Everything you need, delivered to your door.</p>
+      <button onclick="scrollToProducts()">Shop Now</button>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <main>
+    <h2 id="productsTitle">Today's Deals</h2>
+
+    <section class="products" id="products"></section>
+  </main>
+
+  <!-- Cart -->
+  <div class="cart-panel" id="cartPanel">
+
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button onclick="closeCart()">✕</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-footer">
+      <h3>Total: ₹<span id="cartTotal">0</span></h3>
+      <button class="checkout" onclick="checkout()">
+        Proceed to Checkout
+      </button>
+    </div>
+
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+  <footer>
+    <p>© 2026 ShopZone. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
