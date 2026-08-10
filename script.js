@@ -366,3 +366,6 @@ function scrollToProducts() {
 
 displayProducts();
 updateCart();
+<script src="script.js"></script>
+</body>
+</html>
